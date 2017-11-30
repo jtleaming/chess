@@ -7,35 +7,30 @@ namespace chess.tests
 {
     public class ChessTests
     {
+        private readonly Pawn pawn;
+        private readonly Move move;
+        public ChessTests()
+        {
+            var e2 = new Square("E2");
+            this.pawn = new Pawn(e2);
+            this.move = new Move();
+        }
         [Fact]
         public void Move_ShouldSetPawnLocation_WhenPieceIsMoved()
         {
             //Given
-            var pawn = new Pawn("E2");
-            var move = new Move();
+            var e4 = new Square("E4");
             //When
-            move.Piece(pawn, "E4");
+            move.Piece(pawn, e4);
             //Then
-            Assert.Equal("E4", String.Concat(pawn.CurrentPosition));
+            Assert.Equal(e4, pawn.CurrentPosition);
         }
 
         [Fact]
         public void Move_ShouldReturnError_WhenPawnMovedMoreThanOnePosition()
         {
-            //Given
-            var move = new Move();
-            var pawn = new Pawn("E4");
-            //Then
-            Assert.Throws<Exception>(() => move.Piece(pawn,"E7"));
-        }
-        [Fact (Skip="Waiting to refactor")]
-        public void Move_ShouldNotReturnError_WhenPawnMovedMoreThanOnePositionOnFirstMove()
-        {
-            //Given
-            var move = new Move();
-            var pawn = new Pawn("E2");
-            //Then
-            Assert.Throws<Exception>(() => move.Piece(pawn,"E4"));
+            var e7 = new Square("E7");
+            Assert.Throws<Exception>(() => move.Piece(pawn, e7));
         }
     }
 
