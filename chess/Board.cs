@@ -14,9 +14,9 @@ namespace chess
         {
             for (int c = 1; c < 9; c++)
             {
-                for (int i = 1; i < 9; i++)
+                for (int r = 1; r < 9; r++)
                 {
-                    Squares.Add(new Square() { column = c.ConvertIntToLetter(), row = i });
+                    Squares.Add(new Square() { column = c.ConvertIntToLetter(), row = r });
                 }
             }
         }
