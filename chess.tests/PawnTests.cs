@@ -1,3 +1,4 @@
+using System.Linq;
 using Xunit;
 
 namespace chess.tests
@@ -13,7 +14,7 @@ namespace chess.tests
             var validMoves = pawn.AvailableMoves;
             var expected = new [] { Board.Squares[2], Board.Squares[3] };
             //Then
-            Assert.Equal(expected, validMoves);
+            Assert.Equal(expected.First().name, validMoves.First().name);
         }
 
         [Fact]
@@ -25,8 +26,7 @@ namespace chess.tests
             //When
             move.Piece(pawn, Board.Squares[3]);
             //Then
-            Assert.Equal(Board.Squares[4].column, pawn.AvailableMoves[0].column);
-            Assert.Equal(Board.Squares[4].row, pawn.AvailableMoves[0].row);
+            Assert.Equal(Board.Squares[4].name, pawn.AvailableMoves[0].name);
         }
     }
 

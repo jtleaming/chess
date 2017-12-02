@@ -20,6 +20,7 @@ namespace chess
         public void UpdateAvailableMoves(Square square)
         {
             square.row++;
+            square.name = string.Concat(square.column.ToString() + square.row.ToString());
             AvailableMoves = new[] { square };
         }
 
@@ -32,7 +33,9 @@ namespace chess
         {
             if (startingPosition.row == 2)
             {
-                AvailableMoves = new[] { Board.Squares[2], Board.Squares[3] };
+                var positionOne = new Square() {column = startingPosition.column, row = startingPosition.row + 1, name = string.Concat(startingPosition.column.ToString() + (startingPosition.row + 1).ToString())};
+                var positionTwo = new Square() {column = startingPosition.column, row = startingPosition.row + 2 , name = string.Concat(startingPosition.column.ToString() + (startingPosition.row + 2).ToString())};
+                AvailableMoves = new[] { positionOne, positionTwo };
             }
         }
     }

@@ -2,7 +2,7 @@ namespace chess
 {
     public static class Extensions
     {
-        public static char ConvertIntToLetter(this int column)
+        public static char SetColumnValue(this int column)
         {
             switch (column)
             {
