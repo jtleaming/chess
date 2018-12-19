@@ -4,6 +4,6 @@ namespace ChessEngine.Interfaces
 {
     public interface IBoard
     {
-        List<ISquare> Squares { get; }
+        Dictionary<string,ISquare> Squares { get; }
     }
 }

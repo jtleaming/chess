@@ -22,9 +22,10 @@ namespace ChessEngine
             Players.PlayerTwo.Pieces.ForEach(p => p.TurnHandler += TurnListener);
         }
 
-        private List<ISquare> SetPlayerPieces(int playerStartIndex)
+        private Dictionary<string, ISquare> SetPlayerPieces(int playerStartIndex)
         {
-            return Board.Squares.GetRange(playerStartIndex, 16).ToList();
+            var pieces = Board.Squares.ToList().GetRange(playerStartIndex, 16);
+            return pieces.ToDictionary(k => k.Key, v => v.Value);
         }
 
         private void TurnListener(object e, TurnEventArgs eventArgs)

@@ -17,5 +17,14 @@ namespace ChessEngine.Extensions
             }
             return list;
         }
+        public static Dictionary<string,T> AddMultiple<T>(this Dictionary<string,T> list, int count, T objectType)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                list.Add(i.ToString(),objectType);
+               
+            }
+            return list;
+        }
     }
 }

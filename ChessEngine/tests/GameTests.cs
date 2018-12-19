@@ -54,13 +54,13 @@ namespace ChessEngine.tests
         [Fact]
         public void PlayerOne_WhenAfterMove_PlayerOneTurnShouldBeFalse()
         {
-            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares[25]);
+            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["e7"]);
             game.Players.PlayerOne.Turn.Should().BeFalse();
         }
         [Fact]
         public void PlayerOne_WhenAfterMove_PlayerTwoTurnShouldBeTrue()
         {
-            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares[25]);
+            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["e7"]);
             game.Players.PlayerTwo.Turn.Should().BeTrue();
         }
     }

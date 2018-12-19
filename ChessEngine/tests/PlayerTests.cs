@@ -8,20 +8,25 @@ using Moq;
 using Xunit;
 using ChessEngine.Exceptions;
 using static ChessEngine.Common.Singletons;
+using ChessEngine.Common;
+using System;
 
 namespace ChessEngine.tests
 {
     public class PlayerTests
     {
-        private List<ISquare> mockSquares;
+        private Dictionary<string,ISquare> mockSquares;
         private Mock<ISquare> mockSquare;
         private IPlayer player;
         public PlayerTests()
         {
-            mockSquares = new List<ISquare>();
+            mockSquares = new Dictionary<string,ISquare>();
             mockSquare = new Mock<ISquare>();
             mockSquares.AddMultiple(16, mockSquare.Object);
             player = new Player(mockSquares);
+        }
+        private void MockTurnListener(object sender, TurnEventArgs e)
+        {
         }
 
         [Fact]
@@ -55,9 +60,11 @@ namespace ChessEngine.tests
             player.Turn = true;
             var newSquare = new Mock<ISquare>();
             newSquare.Setup(s => s.Position).Returns(("e", "4"));
+            player.Pieces[1].TurnHandler += MockTurnListener;
             var exception = Record.Exception(() => player.Pieces[1].Move(newSquare.Object));
             Assert.Null(exception);
         }
+
         [Fact]
         public void Player_WhenMovePieceToSquareOccupiedByCurrentPlayer_ThrowsException()
         {
