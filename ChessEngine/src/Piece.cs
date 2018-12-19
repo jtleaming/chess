@@ -16,7 +16,7 @@ namespace ChessEngine
         public event EventHandler<TurnEventArgs> TurnHandler;
 
         public IPlayer Player { get => player; }
-        public ISquare Square { get => currentSquare; set => value = currentSquare; }
+        public virtual ISquare Square { get => currentSquare; set => value = currentSquare; }
         public (string rank, string file) Position { get => currentSquare.Position; }
 
         public Piece(ISquare currentSquare, IPlayer player)
@@ -26,7 +26,7 @@ namespace ChessEngine
             currentSquare.Piece = this;
         }
 
-        public void Move(ISquare newSquare)
+        public virtual void Move(ISquare newSquare)
         {
             if (!player.Turn)
             {
