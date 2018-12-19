@@ -28,7 +28,7 @@ namespace ChessEngine.tests
         [Fact]
         public void CreateGame_PlayerOneTurn_ShouldBeTrue()
         {
-            game.Players.PlayerOne.Turn.Should().Be(true);
+            game.Players.PlayerOne.Turn.Should().BeTrue();
         }
         [Fact]
         public void CreateGame_PlayerTwoTurn_ShouldBeFalse()
@@ -50,6 +50,19 @@ namespace ChessEngine.tests
         public void PlayerTwo_LastPiece_ShouldBeH8()
         {
             game.Players.PlayerTwo.Pieces.Last().Position.Should().Be(("h","8"));
+        }
+        [Fact]
+        public void PlayerOne_WhenAfterMove_PlayerOneTurnShouldBeFalse()
+        {
+            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares[25]);
+            game.Players.PlayerOne.Turn.Should().BeFalse();
+        }
+        [Fact]
+        public void PlayerOne_WhenAfterMove_PlayerTwoTurnShouldBeTrue()
+        {
+            game.Players.PlayerOne.Pieces[1].TakeTurn += game.ChangePlayerTurn;
+            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares[25]);
+            game.Players.PlayerTwo.Turn.Should().BeTrue();
         }
     }
 }

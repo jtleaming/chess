@@ -11,6 +11,7 @@ namespace ChessEngine
         public (IPlayer PlayerOne, IPlayer PlayerTwo) Players { get; set; }
         private int whiteStartIndex = 0;
         private int blackStartIndex = 48;
+        private event EventHandler<MoveEventArgs> TakeTurn;
 
         public void CreateGame()
         {
@@ -21,6 +22,17 @@ namespace ChessEngine
         private List<ISquare> SetPlayerPieces(int playerStartIndex)
         {
             return Board.Squares.GetRange(playerStartIndex, 16).ToList();
+        }
+        public void ChangePlayerTurn(object sender, MoveEventArgs e)
+        {
+            if(!e.EventPiece.Player.Equals(Players.PlayerOne))
+            {
+                Players.PlayerOne.Turn = true;
+            }
+            else
+            {
+                Players.PlayerTwo.Turn = true;
+            }
         }
     }
 }

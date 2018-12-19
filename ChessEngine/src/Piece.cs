@@ -1,3 +1,4 @@
+using System;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
 
@@ -10,6 +11,7 @@ namespace ChessEngine
         public IPlayer Player { get => player; }
         public ISquare Square { get => currentSquare; set => value = currentSquare; }
         public (string rank, string file) Position { get => currentSquare.Position; }
+        public event EventHandler<MoveEventArgs> TakeTurn;
 
         public Piece(ISquare currentSquare, IPlayer player)
         {
@@ -33,6 +35,17 @@ namespace ChessEngine
             currentSquare.Piece = null;
             currentSquare = newSquare;
             newSquare.Piece = this;
+
+            player.Turn = false;
+            TakeTurn(this, new MoveEventArgs(this));
+        }
+    }
+    public class MoveEventArgs : EventArgs
+    {
+        public IPiece EventPiece { get; private set; }
+        public MoveEventArgs(IPiece piece)
+        {
+            EventPiece = piece;
         }
     }
 }

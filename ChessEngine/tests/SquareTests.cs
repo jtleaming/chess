@@ -27,7 +27,7 @@ namespace ChessEngine.tests
         {
             var square = new Square("a", "1");
             square.Piece = new Mock<IPiece>().Object;
-            square.Occupied.Should().Be(true);
+            square.Occupied.Should().BeTrue();
         }
         [Fact]
         public void Square_WhenHasNoPiece_OccupiedShouldBeFalse()
