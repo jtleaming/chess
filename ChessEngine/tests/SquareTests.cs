@@ -20,7 +20,7 @@ namespace ChessEngine.tests
         public void Square_Position_ShouldBeRankAndFile()
         {
             var square = new Square("a", "1");
-            square.Position.ToString().Should().Be("a1");
+            square.Position.Should().Be(("a","1"));
         }
         [Fact]
         public void Square_WhenHasPiece_OccupiedShouldBeTrue()

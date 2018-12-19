@@ -32,29 +32,29 @@ namespace ChessEngine.tests
         [Fact]
         public void Player_FirstPiece_ShouldSquareA1()
         {
-            mockSquare.SetupGet(a => a.Position).Returns(("a","1"));
-            player.Pieces.First().Position.Should().Be(("a","1"));
+            mockSquare.SetupGet(a => a.Position).Returns(("a", "1"));
+            player.Pieces.First().Position.Should().Be(("a", "1"));
         }
         [Fact]
         public void Player_LastPiece_ShouldSquareB8()
         {
-            mockSquare.Setup(a => a.Position).Returns(("b","8"));
-            player.Pieces.Last().Position.Should().Be(("b","8"));
+            mockSquare.Setup(a => a.Position).Returns(("b", "8"));
+            player.Pieces.Last().Position.Should().Be(("b", "8"));
         }
         [Fact]
         public void Player_WhenMovePieceTurnFalse_ThrowsException()
         {
             player.Turn = false;
-            var newSquare = new Mock<ISquare>(); 
-            newSquare.Setup(s => s.Position).Returns(("e","4"));
+            var newSquare = new Mock<ISquare>();
+            newSquare.Setup(s => s.Position).Returns(("e", "4"));
             Assert.Throws<InvalidMoveException>(() => player.Pieces[1].Move(newSquare.Object));
         }
         [Fact]
         public void Player_WhenMovePieceTurnTrue_DoesNotThrowException()
         {
             player.Turn = true;
-            var newSquare = new Mock<ISquare>(); 
-            newSquare.Setup(s => s.Position).Returns(("e","4"));
+            var newSquare = new Mock<ISquare>();
+            newSquare.Setup(s => s.Position).Returns(("e", "4"));
             var exception = Record.Exception(() => player.Pieces[1].Move(newSquare.Object));
             Assert.Null(exception);
         }

@@ -12,6 +12,7 @@ namespace ChessEngine.tests
         public PieceTests()
         {
             player = new Mock<IPlayer>();
+            player.Setup(p => p.Turn).Returns(true);
         }
 
         [Fact]
@@ -39,8 +40,8 @@ namespace ChessEngine.tests
         [Fact]
         public void Position_ShouldBeSquarePostion_WhenPieceAssignedToSquare()
         {
-            (string,string) position = ("a", "1");
-            var originalSquare = new Mock<ISquare>(); 
+            (string, string) position = ("a", "1");
+            var originalSquare = new Mock<ISquare>();
             originalSquare.Setup(p => p.Position).Returns(position);
             var piece = new Piece(originalSquare.Object, player.Object);
 

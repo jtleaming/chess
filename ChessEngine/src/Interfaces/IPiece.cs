@@ -1,4 +1,5 @@
 using System;
+using ChessEngine.Common;
 
 namespace ChessEngine.Interfaces
 {
@@ -7,8 +8,7 @@ namespace ChessEngine.Interfaces
         ISquare Square { get; set; }
         IPlayer Player { get; }
         (string rank, string file) Position {get;}
-        event EventHandler<MoveEventArgs> TakeTurn;
-
+        event EventHandler<TurnEventArgs> TurnHandler;
         void Move(ISquare newSquare);
     }
 }
