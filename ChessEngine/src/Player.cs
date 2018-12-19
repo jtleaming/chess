@@ -9,7 +9,9 @@ namespace ChessEngine
         public List<IPiece> Pieces { get; } = new List<IPiece>();
         public bool Turn { get; set; }
 
-        public Player(Dictionary<string,ISquare> squares)
+        public List<IPiece> CapturedPieces { get; } = new List<IPiece>();
+
+        public Player(Dictionary<string, ISquare> squares)
         {
             Pieces = squares.Select(s => s.Value.Piece = new Piece(s.Value, this)).ToList();
         }

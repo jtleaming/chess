@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
+using Microsoft.Win32.SafeHandles;
 
 namespace ChessEngine
 {
@@ -35,11 +38,24 @@ namespace ChessEngine
                 throw new InvalidMoveException("Square occupied by current player");
             }
 
+            if (newSquare.Occupied && newSquare.Piece.Player != this.player)
+            {
+                Capture(newSquare.Piece);
+            }
+
             currentSquare.Piece = null;
             currentSquare = newSquare;
             newSquare.Piece = this;
 
             TurnHandler.Invoke(this, new TurnEventArgs(player));
         }
+
+        private void Capture(IPiece piece)
+        {
+            piece.Player.Pieces.Remove(piece);
+            piece.Square = null;
+            this.Player.CapturedPieces.Add(piece);
+        }
+
     }
 }

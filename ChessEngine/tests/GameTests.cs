@@ -63,5 +63,17 @@ namespace ChessEngine.tests
             game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["e7"]);
             game.Players.PlayerTwo.Turn.Should().BeTrue();
         }
+        [Fact]
+        public void PlayerOne_WhenCapturesPlayerTwoPiece_PlayerTwoShouldHave15Pieces()
+        {
+            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["g1"]);
+            game.Players.PlayerTwo.Pieces.Count.Should().Be(15);
+        }
+        [Fact]
+        public void PlayerOne_WhenCapturesPlayerTwoPiece_PlayerOneShouldHave1CapturePiece()
+        {
+            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["g1"]);
+            game.Players.PlayerOne.CapturedPieces.Count.Should().Be(1);
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ChessEngine.Common;
 using ChessEngine.Interfaces;
 using FluentAssertions;
@@ -51,6 +52,30 @@ namespace ChessEngine.tests
             var piece = new Piece(originalSquare.Object, player.Object);
 
             piece.Position.Should().Be(position);
+        }
+        [Fact]
+        public void Move_ShouldAddOccupyingPieceToPlayerCapturedPieces_WhenNewSquareOccupiedByOtherPlayer()
+        {
+            var currentSquare = new Mock<ISquare>().SetupProperty(p => p.Piece);
+            var piece = new Piece(currentSquare.Object, player.Object);
+            piece.TurnHandler += MockEventListener;
+
+            var mockPiece = new Mock<IPiece>();
+            var mockPlayer = new Mock<IPlayer>();
+            var newSquare = new Mock<ISquare>();
+
+            player.Setup(p => p.CapturedPieces).Returns(new List<IPiece>());
+
+            mockPiece.Setup(p => p.Player).Returns(mockPlayer.Object);
+            mockPiece.Setup(p => p.Square).Returns(newSquare.Object);
+
+            mockPlayer.Setup(p => p.Pieces).Returns(new List<IPiece>{mockPiece.Object});
+
+            newSquare.Setup(s => s.Piece).Returns(mockPiece.Object);
+            newSquare.SetupProperty(s => s.Occupied, true);
+
+            piece.Move(newSquare.Object);
+            player.Object.CapturedPieces.Count.Should().Be(1);
         }
     }
 }
