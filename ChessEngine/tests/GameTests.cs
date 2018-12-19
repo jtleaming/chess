@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using ChessEngine.Interfaces;
 using FluentAssertions;
 using Xunit;
@@ -6,21 +8,48 @@ namespace ChessEngine.tests
 {
     public class GameTests
     {
+        private Game game = new Game();
+
+        public GameTests()
+        {
+            game.CreateGame();
+        }
+
         [Fact]
         public void CreateGame_WhenCalled_CreatesNewGameBoard()
         {
-            var newGame = new Game();
-            newGame.CreateGame();
-
-            newGame.Board.Should().BeOfType(typeof(Board));
+            game.Board.Should().BeOfType(typeof(Board));
         }
         [Fact]
         public void CreateGame_WhenCalled_ShouldAddTwoPlayers()
         {
-            var newGame = new Game();
-            newGame.CreateGame();
-
-            newGame.Players.Should().BeOfType(typeof(Players));
+            game.Players.Should().BeOfType(typeof((IPlayer,IPlayer)));
+        }
+        [Fact]
+        public void CreateGame_PlayerOneTurn_ShouldBeTrue()
+        {
+            game.Players.PlayerOne.Turn.Should().Be(true);
+        }
+        [Fact]
+        public void CreateGame_PlayerTwoTurn_ShouldBeFalse()
+        {
+            game.Players.PlayerTwo.Turn.Should().Be(false);
+        }
+        [Fact]
+        public void PlayersOneAndTwo_ShouldHave16PiecesEach()
+        {
+            game.Players.PlayerOne.Pieces.Count.Should().Be(16);
+            game.Players.PlayerTwo.Pieces.Count.Should().Be(16);
+        }
+        [Fact]
+        public void PlayerOne_FirstPiece_ShouldBeA1()
+        {
+            game.Players.PlayerOne.Pieces.First().Position.Should().Be(("a","1"));
+        }
+        [Fact]
+        public void PlayerTwo_LastPiece_ShouldBeH8()
+        {
+            game.Players.PlayerTwo.Pieces.Last().Position.Should().Be(("h","8"));
         }
     }
 }

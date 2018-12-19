@@ -8,11 +8,17 @@ namespace ChessEngine.tests
 {
     public class PieceTests
     {
+        private Mock<IPlayer> player;
+        public PieceTests()
+        {
+            player = new Mock<IPlayer>();
+        }
+
         [Fact]
         public void Move_ShouldBecomeNewSquarePiece_WhenMovedToNewSquare()
         {
             var currentSquare = new Mock<ISquare>().SetupProperty(p => p.Piece);
-            var piece = new Piece(currentSquare.Object);
+            var piece = new Piece(currentSquare.Object, player.Object);
             var newSquare = new Mock<ISquare>().SetupProperty(p => p.Piece);
 
             piece.Move(newSquare.Object);
@@ -23,7 +29,7 @@ namespace ChessEngine.tests
         public void Move_ShouldNotBeOriginalSquarePiece_WhenPieceMovedToNewSquare()
         {
             var originalSquare = new Mock<ISquare>().SetupProperty(p => p.Piece);
-            var piece = new Piece(originalSquare.Object);
+            var piece = new Piece(originalSquare.Object, player.Object);
             var newSquare = new Mock<ISquare>().SetupProperty(p => p.Piece);
 
             piece.Move(newSquare.Object);
@@ -36,13 +42,9 @@ namespace ChessEngine.tests
             (string,string) position = ("a", "1");
             var originalSquare = new Mock<ISquare>(); 
             originalSquare.Setup(p => p.Position).Returns(position);
-            var piece = new Piece(originalSquare.Object);
+            var piece = new Piece(originalSquare.Object, player.Object);
 
-            piece.Postion.Should().Be(position);
-        }
-        [Fact]
-        public void Move_ShouldThrowException_WhenSquareIsOutsideBoardRange()
-        {
+            piece.Position.Should().Be(position);
         }
     }
 }

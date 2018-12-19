@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace ChessEngine.Interfaces
 {
-    public class IBoard
+    public interface IBoard
     {
-        
+        List<ISquare> Squares { get; }
     }
 }
