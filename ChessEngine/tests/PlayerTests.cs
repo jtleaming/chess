@@ -41,10 +41,10 @@ namespace ChessEngine.tests
             player.Pieces.First().Position.Should().Be(("a", "1"));
         }
         [Fact]
-        public void Player_LastPiece_ShouldSquareB8()
+        public void Player_LastPiece_ShouldSquareH2()
         {
-            mockSquare.Setup(a => a.Position).Returns(("b", "8"));
-            player.Pieces.Last().Position.Should().Be(("b", "8"));
+            mockSquare.Setup(a => a.Position).Returns(("h", "2"));
+            player.Pieces.Last().Position.Should().Be(("h", "2"));
         }
         [Fact]
         public void Player_WhenMovePieceTurnFalse_ThrowsException()
