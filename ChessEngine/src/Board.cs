@@ -22,7 +22,7 @@ namespace ChessEngine
                     rankIndex++;
                     fileIndex = 0;
                 }
-                Squares.Add(Rank[rankIndex] + File[fileIndex], new Square(Rank[rankIndex], File[fileIndex]));
+                Squares.Add(File[fileIndex]+Rank[rankIndex], new Square(File[fileIndex], Rank[rankIndex]));
                 fileIndex++;
             }
         }

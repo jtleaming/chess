@@ -45,10 +45,12 @@ namespace ChessEngine.tests
         public void PlayerOne_FirstPiece_ShouldBeA1()
         {
             game.Players.PlayerOne.Pieces.First().Position.Should().Be(("a", "1"));
+            game.Players.PlayerOne.Pieces.Last().Position.Should().Be(("h", "2"));
         }
         [Fact]
         public void PlayerTwo_LastPiece_ShouldBeH8()
         {
+            game.Players.PlayerTwo.Pieces.First().Position.Should().Be(("a", "7"));
             game.Players.PlayerTwo.Pieces.Last().Position.Should().Be(("h", "8"));
         }
         [Fact]

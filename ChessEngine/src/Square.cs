@@ -13,7 +13,7 @@ namespace ChessEngine
         public bool Occupied { get => Piece !=null; set{} }
         public IPiece Piece { get; set; }
         private string errorMessage = "{0} must be one of the following values: {1}";
-        public Square(string rank, string file)
+        public Square(string file, string rank)
         {
             if(!Rank.Contains(rank))
             {
@@ -23,7 +23,7 @@ namespace ChessEngine
             {
                 throw new InvalidFileException(string.Format(errorMessage, "File", string.Join(",", File)));
             }
-            Position = (rank,file);
+            Position = (file,rank);
         }
     }
 
