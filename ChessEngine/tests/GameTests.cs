@@ -44,14 +44,14 @@ namespace ChessEngine.tests
         [Fact]
         public void PlayerOne_FirstPiece_ShouldBeA1()
         {
-            game.Players.PlayerOne.Pieces.First().Position.Should().Be(("a", "1"));
-            game.Players.PlayerOne.Pieces.Last().Position.Should().Be(("h", "2"));
+            game.Players.PlayerOne.Pieces.First().Position.Should().Be(('a', '1'));
+            game.Players.PlayerOne.Pieces.Last().Position.Should().Be(('h', '2'));
         }
         [Fact]
         public void PlayerTwo_LastPiece_ShouldBeH8()
         {
-            game.Players.PlayerTwo.Pieces.First().Position.Should().Be(("a", "7"));
-            game.Players.PlayerTwo.Pieces.Last().Position.Should().Be(("h", "8"));
+            game.Players.PlayerTwo.Pieces.First().Position.Should().Be(('h', '8'));
+            game.Players.PlayerTwo.Pieces.Last().Position.Should().Be(('a', '7'));
         }
         [Fact]
         public void PlayerOne_WhenAfterMove_PlayerOneTurnShouldBeFalse()
@@ -68,13 +68,13 @@ namespace ChessEngine.tests
         [Fact]
         public void PlayerOne_WhenCapturesPlayerTwoPiece_PlayerTwoShouldHave15Pieces()
         {
-            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["g1"]);
+            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["h7"]);
             game.Players.PlayerTwo.Pieces.Count.Should().Be(15);
         }
         [Fact]
         public void PlayerOne_WhenCapturesPlayerTwoPiece_PlayerOneShouldHave1CapturePiece()
         {
-            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["g1"]);
+            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["h8"]);
             game.Players.PlayerOne.CapturedPieces.Count.Should().Be(1);
         }
     }

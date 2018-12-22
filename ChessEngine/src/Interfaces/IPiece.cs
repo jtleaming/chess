@@ -7,7 +7,7 @@ namespace ChessEngine.Interfaces
     {
         ISquare Square { get; set; }
         IPlayer Player { get; }
-        (string rank, string file) Position {get;}
+        (char file, char rank) Position {get;}
         event EventHandler<TurnEventArgs> TurnHandler;
         void Move(ISquare newSquare);
     }

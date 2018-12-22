@@ -6,19 +6,20 @@ namespace ChessEngine
 {
     public class Pawn : Piece
     {
-
-        public Pawn(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
-        {
-            base.Square = currentSquare;
-        }
+        private IPlayer player;
         private bool firstMove = true;
         public bool FirstMove { get => firstMove; }
+        public Pawn(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
+        {
+            Square = currentSquare;
+            this.player = player;
+        }
 
         public override void Move(ISquare newSquare)
         {
-            if ((newSquare.Position.rank != base.Square.Position.rank)
-            || (Convert.ToInt32(newSquare.Position.file) < Convert.ToInt32(base.Square.Position.file))
-            || (!firstMove && Convert.ToInt32(newSquare.Position.file) > 1))
+            if ((newSquare.Position.file != base.Square.Position.file)
+            || (Convert.ToInt32(newSquare.Position.rank) < Convert.ToInt32(base.Square.Position.rank))
+            || (!firstMove && Convert.ToInt32(newSquare.Position.rank) > 1))
             {
                 throw new InvalidMoveException();
             }

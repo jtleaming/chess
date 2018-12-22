@@ -17,7 +17,7 @@ namespace ChessEngine
 
         public IPlayer Player { get => player; }
         public virtual ISquare Square { get => currentSquare; set => value = currentSquare; }
-        public (string rank, string file) Position { get => currentSquare.Position; }
+        public (char file, char rank) Position { get => currentSquare.Position; }
 
         public Piece(ISquare currentSquare, IPlayer player)
         {

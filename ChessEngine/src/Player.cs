@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChessEngine.Interfaces;
@@ -11,9 +12,9 @@ namespace ChessEngine
 
         public List<IPiece> CapturedPieces { get; } = new List<IPiece>();
 
-        public Player(Dictionary<string, ISquare> squares)
+        public Player(List<ISquare> squares,Func<List<ISquare>, IPlayer, List<IPiece>> pieces)
         {
-            Pieces = squares.Select(s => s.Value.Piece = new Piece(s.Value, this)).ToList();
+            Pieces = pieces(squares, this);
         }
 
     }

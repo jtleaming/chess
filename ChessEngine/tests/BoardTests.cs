@@ -18,13 +18,13 @@ namespace GameEngine.tests
         public void Board_FirstSquare_ShouldBePositionA1()
         {
             Board newBoard = new Board();
-            newBoard.Squares.First().Value.Position.Should().Be(("a", "1"));
+            newBoard.Squares.First().Value.Position.Should().Be(('a', '1'));
         }
         [Fact]
         public void Board_LastSquare_ShouldBePositionH8()
         {
             Board newBoard = new Board();
-            newBoard.Squares.Last().Value.Position.Should().Be(("h", "8"));
+            newBoard.Squares.Last().Value.Position.Should().Be(('h', '8'));
         }
     }
 }

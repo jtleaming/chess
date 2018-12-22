@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ChessEngine.Interfaces;
 using ChessEngine.Common;
+using ChessEngine.Factory;
+using ChessEngine.Extensions;
 
 namespace ChessEngine
 {
@@ -15,17 +17,18 @@ namespace ChessEngine
 
         public void CreateGame()
         {
+            PiecesFactory factory = new PiecesFactory();
             Board = new Board();
-            Players = (new Player(SetPlayerPieces(whiteStartIndex)) { Turn = true }, new Player(SetPlayerPieces(blackStartIndex)) { Turn = false });
+            Players = (new Player(SetPlayerPieces(whiteStartIndex), factory.GetPlayerPieces){ Turn = true }, 
+                    new Player(SetPlayerPieces(blackStartIndex).Reverse<ISquare>(), factory.GetPlayerPieces) { Turn = false });
 
             Players.PlayerOne.Pieces.ForEach(p => p.TurnHandler += TurnListener);
             Players.PlayerTwo.Pieces.ForEach(p => p.TurnHandler += TurnListener);
         }
 
-        private Dictionary<string, ISquare> SetPlayerPieces(int playerStartIndex)
+        private List<ISquare> SetPlayerPieces(int playerStartIndex)
         {
-            var pieces = Board.Squares.ToList().GetRange(playerStartIndex, 16);
-            return pieces.ToDictionary(k => k.Key, v => v.Value);
+            return Board.Squares.ToList().GetRange(playerStartIndex, 16).Select(s => s.Value).ToList();
         }
 
         private void TurnListener(object e, TurnEventArgs eventArgs)
