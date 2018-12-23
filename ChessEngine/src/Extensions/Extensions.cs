@@ -33,7 +33,7 @@ namespace ChessEngine.Extensions
             list.Reverse();
             return list;
         }
-        public static bool Contains(this File file, char query)
+        public static bool Contains(this FileBacker file, char query)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace ChessEngine.Extensions
                 return false;
             }
         }
-        public static bool Contains(this Rank rank, char query)
+        public static bool Contains(this RankBacker rank, char query)
         {
             try
             {

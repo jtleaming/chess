@@ -8,5 +8,8 @@ namespace ChessEngine.Interfaces
         List<IPiece> Pieces {get;}
         List<IPiece> CapturedPieces { get; }
         bool Turn { get; set; }
+        string IsPlayer { get; set; }
+
+        void Move(string pieceToMove, string locationToMove);
     }
 }

@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
-using Microsoft.Win32.SafeHandles;
 
 namespace ChessEngine
 {
@@ -18,6 +17,7 @@ namespace ChessEngine
         public IPlayer Player { get => player; }
         public virtual ISquare Square { get => currentSquare; set => value = currentSquare; }
         public (char file, char rank) Position { get => currentSquare.Position; }
+        public string Id => currentSquare.Id;
 
         public Piece(ISquare currentSquare, IPlayer player)
         {

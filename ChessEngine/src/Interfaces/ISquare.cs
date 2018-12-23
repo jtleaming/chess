@@ -5,6 +5,6 @@ namespace ChessEngine.Interfaces
         (char file, char rank) Position { get; }
         string Id {get;}
         IPiece Piece { get; set; }
-        bool Occupied { get; set; }
+        bool Occupied { get; }
     }
 }

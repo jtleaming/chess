@@ -11,7 +11,7 @@ namespace ChessEngine
     {
         public (char file, char rank) Position { get; private set; }
         public string Id => Position.file.ToString()+Position.rank;
-        public bool Occupied { get => Piece !=null; set{} }
+        public bool Occupied { get => Piece !=null; }
         public IPiece Piece { get; set; }
         private string errorMessage = "{0} must be one of the following values: {1}";
         public Square(char file, char rank)

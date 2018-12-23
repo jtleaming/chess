@@ -74,7 +74,7 @@ namespace ChessEngine.tests
             mockPlayer.Setup(p => p.Pieces).Returns(new List<IPiece> { mockPiece.Object });
 
             newSquare.Setup(s => s.Piece).Returns(mockPiece.Object);
-            newSquare.SetupProperty(s => s.Occupied, true);
+            newSquare.Setup(s => s.Occupied).Returns(true);
 
             piece.Move(newSquare.Object);
             player.Object.CapturedPieces.Count.Should().Be(1);

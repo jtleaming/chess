@@ -77,5 +77,13 @@ namespace ChessEngine.tests
             game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["h8"]);
             game.Players.PlayerOne.CapturedPieces.Count.Should().Be(1);
         }
+        [Fact]
+        public void PlayerOne_WhenCallsMove_PieceShouldMoveToNewSquare()
+        {
+            game.Players.PlayerOne.Move("b2","b3");
+
+            game.Board.Squares.First(s => s.Value.Id == "b2").Value.Occupied.Should().BeFalse();
+            game.Board.Squares.First(s => s.Value.Id == "b3").Value.Occupied.Should().BeTrue();
+        }
     }
 }

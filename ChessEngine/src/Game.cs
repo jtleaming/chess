@@ -19,8 +19,8 @@ namespace ChessEngine
         {
             PiecesFactory factory = new PiecesFactory();
             Board = new Board();
-            Players = (new Player(SetPlayerPieces(whiteStartIndex), factory.GetPlayerPieces){ Turn = true }, 
-                    new Player(SetPlayerPieces(blackStartIndex).Reverse<ISquare>(), factory.GetPlayerPieces) { Turn = false });
+            Players = (new Player(SetPlayerPieces(whiteStartIndex), factory.GetPlayerPieces, Board){ Turn = true, IsPlayer = "One" }, 
+                    new Player(SetPlayerPieces(blackStartIndex).Reverse<ISquare>(), factory.GetPlayerPieces, Board) { Turn = false, IsPlayer = "Two" });
 
             Players.PlayerOne.Pieces.ForEach(p => p.TurnHandler += TurnListener);
             Players.PlayerTwo.Pieces.ForEach(p => p.TurnHandler += TurnListener);
