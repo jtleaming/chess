@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ChessEngine.Interfaces;
+using ChessEngine.Pieces;
 using Moq;
 using Xunit;
 

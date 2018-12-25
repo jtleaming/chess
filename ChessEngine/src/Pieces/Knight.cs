@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ChessEngine.Interfaces;
 
-namespace ChessEngine
+namespace ChessEngine.Pieces
 {
     public class Knight : Piece
     {

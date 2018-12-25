@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
+using ChessEngine.Pieces;
 using FluentAssertions;
 using Moq;
 using Xunit;

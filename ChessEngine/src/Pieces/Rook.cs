@@ -1,10 +1,10 @@
 using ChessEngine.Interfaces;
 
-namespace ChessEngine
+namespace ChessEngine.Pieces
 {
-    public class Bishop : Piece
+    public class Rook : Piece
     {
-        public Bishop(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
+        public Rook(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
         }
 

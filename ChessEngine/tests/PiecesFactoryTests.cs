@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ChessEngine.Factory;
 using ChessEngine.Interfaces;
+using ChessEngine.Pieces;
 using FluentAssertions;
 using Moq;
 using Xunit;

@@ -1,6 +1,6 @@
 using ChessEngine.Interfaces;
 
-namespace ChessEngine
+namespace ChessEngine.Pieces
 {
     public class King : Piece
     {

@@ -5,7 +5,7 @@ using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
 
-namespace ChessEngine
+namespace ChessEngine.Pieces
 {
     public abstract class Piece : IPiece
     {

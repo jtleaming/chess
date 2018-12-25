@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ChessEngine.Extensions;
 using ChessEngine.Interfaces;
+using ChessEngine.Pieces;
 
 namespace ChessEngine.Factory
 {
