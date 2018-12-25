@@ -9,7 +9,7 @@ namespace ChessEngine
     {
         private readonly IBoard board;
 
-        public List<IPiece> Pieces { get; } = new List<IPiece>();
+        public List<IPiece> Pieces { get;} = new List<IPiece>();
         public bool Turn { get; set; }
 
         public List<IPiece> CapturedPieces { get; } = new List<IPiece>();
@@ -23,7 +23,8 @@ namespace ChessEngine
 
         public void Move(string pieceToMove, string locationToMove)
         {
-            Pieces.FirstOrDefault(p => p.Id == pieceToMove).Move(board.Squares[locationToMove]);
+            var piece = Pieces.FirstOrDefault(p => p.Id == pieceToMove);
+            piece.Move(board.Squares[locationToMove]);
         }
     }
 }

@@ -18,7 +18,26 @@ namespace ChessEngine.Factory
                     }
                     else
                     {
-                        s.Piece = new Piece(s, player);
+                        if (s.Position.file == 'b' || s.Position.file == 'g')
+                        {
+                            s.Piece = new Knight(s, player);
+                        }
+                        else if(s.Position.file == 'a' || s.Position.file == 'h')
+                        {
+                            s.Piece = new Rook(s, player);
+                        }
+                        else if(s.Position.file == 'c' || s.Position.file == 'f')
+                        {
+                            s.Piece = new Bishop(s, player);
+                        }
+                        else if(s.Id == "d1" || s.Id == "e8")
+                        {
+                            s.Piece = new King(s, player);
+                        }
+                        else
+                        {
+                            s.Piece = new Queen(s, player);
+                        }
                     }
                     pieces.Add(s.Piece);
                 }

@@ -56,25 +56,29 @@ namespace ChessEngine.tests
         [Fact]
         public void PlayerOne_WhenAfterMove_PlayerOneTurnShouldBeFalse()
         {
-            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["e7"]);
+            game.Players.PlayerOne.Move("a2", "a3");
             game.Players.PlayerOne.Turn.Should().BeFalse();
         }
         [Fact]
         public void PlayerOne_WhenAfterMove_PlayerTwoTurnShouldBeTrue()
         {
-            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["e7"]);
+            game.Players.PlayerOne.Move("d2", "d3");
             game.Players.PlayerTwo.Turn.Should().BeTrue();
         }
         [Fact]
         public void PlayerOne_WhenCapturesPlayerTwoPiece_PlayerTwoShouldHave15Pieces()
         {
-            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["h7"]);
+            game.Players.PlayerOne.Move("d2", "d4");
+            game.Players.PlayerTwo.Move("e7", "e5");
+            game.Players.PlayerOne.Move("d4", "e5");
             game.Players.PlayerTwo.Pieces.Count.Should().Be(15);
         }
         [Fact]
         public void PlayerOne_WhenCapturesPlayerTwoPiece_PlayerOneShouldHave1CapturePiece()
         {
-            game.Players.PlayerOne.Pieces[1].Move(game.Board.Squares["h8"]);
+            game.Players.PlayerOne.Move("d2", "d4");
+            game.Players.PlayerTwo.Move("e7", "e5");
+            game.Players.PlayerOne.Move("d4", "e5");
             game.Players.PlayerOne.CapturedPieces.Count.Should().Be(1);
         }
         [Fact]

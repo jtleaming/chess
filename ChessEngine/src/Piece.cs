@@ -7,15 +7,15 @@ using ChessEngine.Interfaces;
 
 namespace ChessEngine
 {
-    public class Piece : IPiece
+    public abstract class Piece : IPiece
     {
-        private ISquare currentSquare;
+        protected ISquare currentSquare;
         private readonly IPlayer player;
 
         public event EventHandler<TurnEventArgs> TurnHandler;
 
-        public IPlayer Player { get => player; }
-        public virtual ISquare Square { get => currentSquare; set => value = currentSquare; }
+        public abstract IPlayer Player { get; }
+        public virtual ISquare Square { get => currentSquare; set => value = currentSquare;}
         public (char file, char rank) Position { get => currentSquare.Position; }
         public string Id => currentSquare.Id;
 
@@ -49,7 +49,7 @@ namespace ChessEngine
 
             TurnHandler.Invoke(this, new TurnEventArgs(player));
         }
-
+        protected abstract bool CheckRules(ISquare newSquare);
         private void Capture(IPiece piece)
         {
             piece.Player.Pieces.Remove(piece);

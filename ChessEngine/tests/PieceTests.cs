@@ -11,6 +11,20 @@ namespace ChessEngine.tests
 {
     public class PieceTests
     {
+        private class MockPieceClass : Piece
+        {
+            private IPlayer player;
+            public MockPieceClass(ISquare currentSquare, IPlayer player) : base(currentSquare, player) 
+            {
+                this.currentSquare = currentSquare;
+                this.player = player;
+            }
+            public override IPlayer Player => player;
+
+            public override ISquare Square { get => base.currentSquare; set => value = base.currentSquare; }
+
+            protected override bool CheckRules(ISquare newSquare) => true;
+        }
         private Mock<IPlayer> player;
         private Piece piece;
         private Mock<ISquare> currentSquare;
@@ -27,7 +41,7 @@ namespace ChessEngine.tests
 
             currentSquare = new Mock<ISquare>().SetupProperty(p => p.Piece);
             currentSquare.Setup(s => s.Position).Returns(position);
-            piece = new Piece(currentSquare.Object, player.Object);
+            piece = new MockPieceClass(currentSquare.Object, player.Object);
             piece.TurnHandler += MockEventListener;
         }
         private void MockEventListener(object o, TurnEventArgs eventArgs)

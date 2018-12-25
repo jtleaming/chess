@@ -1,6 +1,0 @@
-Failed   ChessEngine.tests.PieceTests.Move_ShouldAddOccupyingPieceToPlayerCapturedPieces_WhenNewSquareOccupiedByOtherPlayer
-Failed   ChessEngine.tests.PlayerTests.Player_FirstPiece_ShouldSquareA1
-   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\AssertionScope.cs:line 181
-Failed   ChessEngine.tests.PlayerTests.Player_LastPiece_ShouldSquareH2
-   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\AssertionScope.cs:line 181
-Total tests: 45. Passed: 42. Failed: 3. Skipped: 0.
