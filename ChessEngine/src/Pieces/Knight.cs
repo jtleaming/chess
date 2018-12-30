@@ -11,7 +11,7 @@ namespace ChessEngine.Pieces
         private readonly IPlayer player;
 
         public override IPlayer Player => player;
-        public override ISquare Square { get => base.currentSquare; }
+        public override ISquare Square => base.currentSquare; 
         public Knight(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
             this.player = player;
@@ -24,12 +24,6 @@ namespace ChessEngine.Pieces
                 throw new InvalidMoveException("Knight cannot make this move.");
             }
             base.Move(newSquare);
-        }
-
-        public List<(char file, char rank)> GetValidMoves()
-        {
-            List<(char,char)> validMoves = new List<(char,char)>();
-            return validMoves;
         }
 
         protected override bool CheckRules(ISquare newSquare)

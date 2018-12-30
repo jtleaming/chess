@@ -13,8 +13,6 @@ namespace ChessConsole
         {
             var chessGame = new Game();
             chessGame.CreateGame();
-            var chessBoard = chessGame.Board;
-            var squares = chessBoard.Squares.ToList();
             PlayGame.Play(chessGame);
         }
     }

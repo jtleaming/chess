@@ -13,10 +13,8 @@ namespace ChessEngine.tests
     public class KnightTests
     {
         private readonly Knight knight;
-        private readonly Mock<IPlayer> mockOtherPlayer;
         private Mock<IPlayer> mockPlayer;
         private Mock<ISquare> mockNewSquare;
-        private readonly Mock<IPiece> mockNewPiece;
         private Mock<ISquare> mockSquare;
         private Mock<ISquare> mockCurrentSquare;
 
@@ -25,15 +23,11 @@ namespace ChessEngine.tests
             mockCurrentSquare = new Mock<ISquare>();
             mockPlayer = new Mock<IPlayer>();
             mockNewSquare = new Mock<ISquare>();
-            mockNewPiece = new Mock<IPiece>();
-            mockOtherPlayer = new Mock<IPlayer>();
 
             mockCurrentSquare.Setup(s => s.Position).Returns(('d', '4'));
             mockPlayer.Setup(p => p.IsPlayer).Returns("One");
             mockPlayer.Setup(p => p.CapturedPieces).Returns(new List<IPiece>());
             mockPlayer.Setup(p => p.Turn).Returns(true);
-
-            mockOtherPlayer.Setup(pl => pl.Pieces).Returns(new List<IPiece> { mockNewPiece.Object });
 
             knight = new Knight(mockCurrentSquare.Object, mockPlayer.Object);
             knight.TurnHandler += MockTurnEventListener;
