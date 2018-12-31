@@ -13,10 +13,9 @@ namespace ChessEngine.Pieces
         private readonly IPlayer player;
 
         public event EventHandler<TurnEventArgs> TurnHandler;
-
-        public abstract IPlayer Player { get; }
-        public virtual ISquare Square { get => currentSquare; set => value = currentSquare;}
-        public (char file, char rank) Position { get => currentSquare.Position; }
+        public IPlayer Player => player;
+        public ISquare Square => currentSquare;
+        public (char file, char rank) Position => currentSquare.Position;
         public string Id => currentSquare.Id;
 
         public Piece(ISquare currentSquare, IPlayer player)
@@ -43,6 +42,11 @@ namespace ChessEngine.Pieces
                 throw new InvalidMoveException();
             }
 
+            if(this.GetType() != typeof(Knight) && CrossesOverPlayer(newSquare))
+            {
+                throw new InvalidMoveException();
+            }
+
             if (newSquare.Occupied && newSquare.Piece.Player != this.player)
             {
                 Capture(newSquare.Piece);
@@ -54,13 +58,23 @@ namespace ChessEngine.Pieces
 
             TurnHandler.Invoke(this, new TurnEventArgs(player));
         }
+
+        public void RemoveFromBoard()
+        {
+            currentSquare = null;
+        }
+
         protected abstract bool CheckRules(ISquare newSquare);
+
+        private bool CrossesOverPlayer(ISquare newSquare)
+        {
+            return false;
+        }
         private void Capture(IPiece piece)
         {
             piece.Player.Pieces.Remove(piece);
-            piece.Square = null;
+            piece.RemoveFromBoard();
             this.Player.CapturedPieces.Add(piece);
         }
-
     }
 }

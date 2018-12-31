@@ -14,16 +14,9 @@ namespace ChessEngine.tests
     {
         private class MockPieceClass : Piece
         {
-            private IPlayer player;
             public MockPieceClass(ISquare currentSquare, IPlayer player) : base(currentSquare, player) 
             {
-                this.currentSquare = currentSquare;
-                this.player = player;
             }
-            public override IPlayer Player => player;
-
-            public override ISquare Square { get => base.currentSquare; set => value = base.currentSquare; }
-
             protected override bool CheckRules(ISquare newSquare) => false;
         }
         private Mock<IPlayer> player;
@@ -45,9 +38,7 @@ namespace ChessEngine.tests
             piece = new MockPieceClass(currentSquare.Object, player.Object);
             piece.TurnHandler += MockEventListener;
         }
-        private void MockEventListener(object o, TurnEventArgs eventArgs)
-        {
-        }
+        private void MockEventListener(object o, TurnEventArgs eventArgs){}
 
         [Fact]
         public void Move_ShouldBecomeNewSquarePiece_WhenMovedToNewSquare()
@@ -58,6 +49,7 @@ namespace ChessEngine.tests
 
             newSquare.Object.Piece.Should().Be(piece);
         }
+
         [Fact]
         public void Move_ShouldNotBeOriginalSquarePiece_WhenPieceMovedToNewSquare()
         {
@@ -68,11 +60,13 @@ namespace ChessEngine.tests
 
             currentSquare.Object.Piece.Should().NotBe(piece);
         }
+
         [Fact]
         public void Position_ShouldBeSquarePostion_WhenPieceAssignedToSquare()
         {
             piece.Position.Should().Be(position);
         }
+
         [Fact]
         public void Move_ShouldAddOccupyingPieceToPlayerCapturedPieces_WhenNewSquareOccupiedByOtherPlayer()
         {

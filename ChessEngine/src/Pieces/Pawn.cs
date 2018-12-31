@@ -8,16 +8,11 @@ namespace ChessEngine.Pieces
 {
     public class Pawn : Piece
     {
-        private IPlayer player;
         private bool firstMove = true;
-        public override ISquare Square { get => base.currentSquare; }
-        public override IPlayer Player => player;
         public bool FirstMove { get => firstMove; }
 
         public Pawn(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
-            this.currentSquare = currentSquare;
-            this.player = player;
         }
 
         public override void Move(ISquare newSquare)
@@ -36,9 +31,9 @@ namespace ChessEngine.Pieces
             {
                 firstMove && squaresToMove > 2,
                 !firstMove && squaresToMove > 1,
-                (player.IsPlayer == "One") ? newSquare.Position.rank < Square.Position.rank : newSquare.Position.rank > Square.Position.rank,
+                (Player.IsPlayer == "One") ? newSquare.Position.rank < Square.Position.rank : newSquare.Position.rank > Square.Position.rank,
                 filesToMove > 1,
-                filesToMove == 1 && (newSquare.Piece?.Player == player || !newSquare.Occupied),
+                filesToMove == 1 && (newSquare.Piece?.Player == Player || !newSquare.Occupied),
                 newSquare.Position.rank == Square.Position.rank
             };
 

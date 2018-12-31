@@ -9,13 +9,9 @@ namespace ChessEngine.Pieces
 {
     public class Queen : Piece
     {
-        private readonly IPlayer player;
-        public override IPlayer Player => player;
 
-        public override ISquare Square => base.Square;
         public Queen(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
-            this.player = player;
         }
 
         protected override bool CheckRules(ISquare newSquare)

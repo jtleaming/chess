@@ -5,11 +5,12 @@ namespace ChessEngine.Interfaces
 {
     public interface IPiece
     {
-        ISquare Square { get; set; }
+        ISquare Square { get; }
         IPlayer Player { get; }
         (char file, char rank) Position {get;}
         string Id { get; }
         event EventHandler<TurnEventArgs> TurnHandler;
         void Move(ISquare newSquare);
+        void RemoveFromBoard();
     }
 }

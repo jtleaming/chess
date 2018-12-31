@@ -27,6 +27,7 @@ namespace ChessEngine
             try
             {
                 var piece = Pieces.FirstOrDefault(p => p.Id == pieceToMove);
+                board.CheckForPiecesBetween(pieceToMove, locationToMove);
                 piece.Move(board.Squares[locationToMove]);
             }
             catch (NullReferenceException)
