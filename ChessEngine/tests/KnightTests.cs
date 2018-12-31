@@ -15,7 +15,6 @@ namespace ChessEngine.tests
         private readonly Knight knight;
         private Mock<IPlayer> mockPlayer;
         private Mock<ISquare> mockNewSquare;
-        private Mock<ISquare> mockSquare;
         private Mock<ISquare> mockCurrentSquare;
 
         public KnightTests()

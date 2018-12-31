@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
 
 namespace ChessEngine
@@ -23,8 +24,15 @@ namespace ChessEngine
 
         public void Move(string pieceToMove, string locationToMove)
         {
-            var piece = Pieces.FirstOrDefault(p => p.Id == pieceToMove);
-            piece.Move(board.Squares[locationToMove]);
+            try
+            {
+                var piece = Pieces.FirstOrDefault(p => p.Id == pieceToMove);
+                piece.Move(board.Squares[locationToMove]);
+            }
+            catch (NullReferenceException)
+            {
+                throw new InvalidMoveException($"Player does not have a piece on {locationToMove}");
+            }
         }
     }
 }

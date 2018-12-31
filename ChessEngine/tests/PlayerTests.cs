@@ -23,7 +23,7 @@ namespace ChessEngine.tests
         public PlayerTests()
         {
             mockSquares = new List<Mock<ISquare>>();
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < 32; i++)
             {
                 mockSquares.Add(new Mock<ISquare>());
             }
@@ -79,6 +79,11 @@ namespace ChessEngine.tests
             Player.Move("b2", "b3");
 
             mockPieces.FirstOrDefault(p => p.Object.Id == "b2").Verify(p => p.Move(It.IsAny<ISquare>()));
+        }
+        [Fact]
+        public void Move_WhenGivenPieceQuardenantsWithoutPlayerPiece_ShouldThrowInvalidMoveException()
+        {
+            Assert.Throws<InvalidMoveException>(() => Player.Move("b3", "b4"));
         }
     }
 }

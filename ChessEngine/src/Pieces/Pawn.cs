@@ -35,13 +35,15 @@ namespace ChessEngine.Pieces
 
         protected override bool CheckRules(ISquare newSquare)
         { 
-            var squaresToMove = Math.Abs(Char.GetNumericValue(newSquare.Position.rank) - Char.GetNumericValue(Square.Position.rank));
+            var squaresToMove = Math.Abs((int)newSquare.Position.rank - (int)Square.Position.rank);
+            int filesToMove = Math.Abs((int)newSquare.Position.file - (int)Square.Position.file);
             List<bool> rules = new List<bool>
             {
-                (player.IsPlayer == "One") ? firstMove && squaresToMove > 2 : firstMove && squaresToMove < 2, 
-                (player.IsPlayer == "One") ? !firstMove && squaresToMove > 1 : !firstMove && squaresToMove < 1,
+                firstMove && squaresToMove > 2,
+                !firstMove && squaresToMove > 1,
                 (player.IsPlayer == "One") ? newSquare.Position.rank < Square.Position.rank : newSquare.Position.rank > Square.Position.rank,
-                newSquare.Position.file > Square.Position.file + 1 || newSquare.Position.file < Square.Position.file - 1 ? true : newSquare.Piece?.Player == player,
+                filesToMove > 1,
+                filesToMove == 1 && (newSquare.Piece?.Player == player || !newSquare.Occupied),
                 newSquare.Position.rank == Square.Position.rank
             };
 

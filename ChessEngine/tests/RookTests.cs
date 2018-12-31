@@ -14,7 +14,6 @@ namespace ChessEngine.tests
         private readonly Rook rook;
         private Mock<IPlayer> mockPlayer;
         private Mock<ISquare> mockNewSquare;
-        private Mock<ISquare> mockSquare;
         private Mock<ISquare> mockCurrentSquare;
 
         public RookTests()
@@ -31,8 +30,8 @@ namespace ChessEngine.tests
             rook = new Rook(mockCurrentSquare.Object, mockPlayer.Object);
             rook.TurnHandler += MockTurnEventListener;
         }
-
         private void MockTurnEventListener(object sender, TurnEventArgs e) {}
+
         [Theory]
         [InlineData('b','2')]
         [InlineData('h','8')]
