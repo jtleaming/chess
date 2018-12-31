@@ -17,15 +17,6 @@ namespace ChessEngine.Pieces
             this.player = player;
         }
 
-        public override void Move(ISquare newSquare)
-        {
-            if(CheckRules(newSquare))
-            {
-                throw new InvalidMoveException("Knight cannot make this move.");
-            }
-            base.Move(newSquare);
-        }
-
         protected override bool CheckRules(ISquare newSquare)
         {
             var ranksToMove = Math.Abs((int)newSquare.Position.rank - (int)Square.Position.rank);

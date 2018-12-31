@@ -38,6 +38,11 @@ namespace ChessEngine.Pieces
                 throw new InvalidMoveException("Square occupied by current player");
             }
 
+            if(CheckRules(newSquare))
+            {
+                throw new InvalidMoveException();
+            }
+
             if (newSquare.Occupied && newSquare.Piece.Player != this.player)
             {
                 Capture(newSquare.Piece);

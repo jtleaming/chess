@@ -24,7 +24,7 @@ namespace ChessEngine.tests
 
             public override ISquare Square { get => base.currentSquare; set => value = base.currentSquare; }
 
-            protected override bool CheckRules(ISquare newSquare) => true;
+            protected override bool CheckRules(ISquare newSquare) => false;
         }
         private Mock<IPlayer> player;
         private Piece piece;

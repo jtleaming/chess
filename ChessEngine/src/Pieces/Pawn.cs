@@ -22,11 +22,6 @@ namespace ChessEngine.Pieces
 
         public override void Move(ISquare newSquare)
         {
-            if (CheckRules(newSquare))
-            {
-                throw new InvalidMoveException();
-            }
-
             base.Move(newSquare);
 
             if (firstMove) firstMove = false;

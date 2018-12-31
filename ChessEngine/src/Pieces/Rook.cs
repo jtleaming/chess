@@ -16,15 +16,6 @@ namespace ChessEngine.Pieces
             this.player = player;
         }
 
-        public override void Move(ISquare newSquare)
-        {
-            if(CheckRules(newSquare))
-            {
-                throw new InvalidMoveException("Rook cannot make this move.");
-            }
-            base.Move(newSquare);
-        }
-
         protected override bool CheckRules(ISquare newSquare)
         {
             List<bool> rules = new List<bool>
