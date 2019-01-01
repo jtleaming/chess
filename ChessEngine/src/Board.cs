@@ -39,34 +39,76 @@ namespace ChessEngine
 
             if(squares.Any(s => s.Occupied))
             {
-                throw new InvalidMoveException();
+                throw new InvalidMoveException("Piece cannot leap over other piece.");
             }
         }
 
         private IEnumerable<ISquare> CheckVerticalLeaps(string pieceToMove, string locationToMove)
         {
-            int numberOfSquaresToCheck = Math.Abs(locationToMove[1] - pieceToMove[1] - 1);
-            for (int i = 1; i <= numberOfSquaresToCheck; i++)
+            int numberOfSquaresToCheck = GetNumberOfSquares(locationToMove[1], pieceToMove[1]);
+            if(locationToMove[1] > pieceToMove[1])
             {
-                yield return Squares[pieceToMove[0] + ((char)(pieceToMove[1] + i)).ToString()];
+                for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                {
+                    yield return Squares[pieceToMove[0] + ((char)(pieceToMove[1] + i)).ToString()];
+                }
+            }
+            else
+            {
+                for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                {
+                    yield return Squares[pieceToMove[0] + ((char)(pieceToMove[1] - i)).ToString()];
+                }
             }
         }
 
         private IEnumerable<ISquare> CheckHorizontalLeaps(string pieceToMove, string locationToMove)
         {
-            int numberOfSquaresToCheck = Math.Abs(locationToMove[0] - pieceToMove[0] - 1);
-            for (int i = 1; i <= numberOfSquaresToCheck; i++)
+            int numberOfSquaresToCheck = GetNumberOfSquares(pieceToMove[0], locationToMove[0]);
+            if(pieceToMove[0] < locationToMove[0])
             {
-                yield return Squares[((char)(pieceToMove[0] + i)).ToString() + pieceToMove[1]];
+                for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                {
+                    yield return Squares[((char)(pieceToMove[0] + i)).ToString() + pieceToMove[1]];
+                }
+            }
+            else
+            {
+                for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                {
+                    yield return Squares[((char)(pieceToMove[0] - i)).ToString() + pieceToMove[1]];
+                }
             }
         }
 
         private IEnumerable<ISquare> CheckDiagonalLeaps(string pieceToMove, string locationToMove)
         {
-            int numberOfSquaresToCheck = Math.Abs(locationToMove[0] - pieceToMove[0] - 1);
-            for (int i = 1; i <= numberOfSquaresToCheck; i++)
+            int numberOfSquaresToCheck = GetNumberOfSquares(pieceToMove[0], locationToMove[0]);
+            if(pieceToMove[1] < locationToMove[1])
             {
-                yield return Squares[((char)(pieceToMove[0] + i)).ToString() + (char)(pieceToMove[1] + i)];
+                for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                {
+                    yield return Squares[((char)(pieceToMove[0] + i)).ToString() + (char)(pieceToMove[1] + i)];
+                }
+            }
+            else
+            {
+                for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                {
+                    yield return Squares[((char)(pieceToMove[0] - i)).ToString() + (char)(pieceToMove[1] - i)];
+                }
+            }
+        }
+
+        private int GetNumberOfSquares(char pieceToMove, char locationToMove)
+        {
+            if(locationToMove > pieceToMove)
+            {
+                return Math.Abs(locationToMove - pieceToMove - 1);
+            }
+            else
+            {
+                return Math.Abs(locationToMove - pieceToMove + 1);
             }
         }
     }

@@ -13,32 +13,26 @@ namespace ChessEngine.Factory
             List<IPiece> pieces = new List<IPiece>();
             squares.ForEach(s =>
                 {
-                    if (s.Position.rank == '2' || s.Position.rank == '7')
+                    switch (s.Position)
                     {
-                        s.Piece = new Pawn(s, player);
-                    }
-                    else
-                    {
-                        if (s.Position.file == 'b' || s.Position.file == 'g')
-                        {
+                        case var position when position.rank == '2' || position.rank == '7':
+                            s.Piece = new Pawn(s, player);
+                            break;
+                        case var position when position.file == 'b' || position.file == 'g':
                             s.Piece = new Knight(s, player);
-                        }
-                        else if(s.Position.file == 'a' || s.Position.file == 'h')
-                        {
+                            break;
+                        case var position when position.file == 'a' || position.file == 'h':
                             s.Piece = new Rook(s, player);
-                        }
-                        else if(s.Position.file == 'c' || s.Position.file == 'f')
-                        {
+                            break;
+                        case var position when position.file == 'c' || position.file == 'f':
                             s.Piece = new Bishop(s, player);
-                        }
-                        else if(s.Id == "d1" || s.Id == "e8")
-                        {
+                            break;
+                        case var position when position.file == 'e':
                             s.Piece = new King(s, player);
-                        }
-                        else
-                        {
+                            break;
+                        default:
                             s.Piece = new Queen(s, player);
-                        }
+                            break;
                     }
                     pieces.Add(s.Piece);
                 }
