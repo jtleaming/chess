@@ -11,12 +11,14 @@ namespace ChessEngine.Pieces
     {
         protected ISquare currentSquare;
         private readonly IPlayer player;
+        private bool firstMove = true;
 
         public event EventHandler<TurnEventArgs> TurnHandler;
         public IPlayer Player => player;
         public ISquare Square => currentSquare;
         public (char file, char rank) Position => currentSquare.Position;
         public string Id => currentSquare.Id;
+        public bool FirstMove => firstMove;
 
         public Piece(ISquare currentSquare, IPlayer player)
         {
@@ -27,6 +29,8 @@ namespace ChessEngine.Pieces
 
         public virtual void Move(ISquare newSquare)
         {
+            bool pieceCaptured = false;
+            IPiece capturedPiece = null;
             if (!player.Turn)
             {
                 throw new InvalidMoveException("It is not the players turn");
@@ -50,13 +54,16 @@ namespace ChessEngine.Pieces
             if (newSquare.Occupied && newSquare.Piece.Player != this.player)
             {
                 Capture(newSquare.Piece);
+                pieceCaptured = true;
+                capturedPiece = newSquare.Piece;
             }
 
             currentSquare.Piece = null;
             currentSquare = newSquare;
             newSquare.Piece = this;
+            if (firstMove) firstMove = false;
 
-            TurnHandler.Invoke(this, new TurnEventArgs(player));
+            TurnHandler.Invoke(this, new TurnEventArgs(pieceCaptured, capturedPiece));
         }
 
         public void RemoveFromBoard()

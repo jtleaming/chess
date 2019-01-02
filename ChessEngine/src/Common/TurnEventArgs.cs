@@ -6,10 +6,12 @@ namespace ChessEngine.Common
 
     public class TurnEventArgs : EventArgs
     {
-        public IPlayer Player { get; private set; }
-        public TurnEventArgs(IPlayer player)
+        public bool PieceCaptured { get; }
+        public IPiece CapturedPiece { get; }
+        public TurnEventArgs(bool pieceCaptured, IPiece capturedPiece)
         {
-            Player = player;
+            CapturedPiece = capturedPiece;
+            PieceCaptured = pieceCaptured;
         }
     }
 }

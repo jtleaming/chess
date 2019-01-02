@@ -12,8 +12,11 @@ namespace ChessEngine
     {
         public IBoard Board { get; set; }
         public (IPlayer PlayerOne, IPlayer PlayerTwo) Players { get; set; }
+        public string TurnMessage => turnMessage;
+
         private int whiteStartIndex = 0;
         private int blackStartIndex = 48;
+        private string turnMessage;
 
         public void CreateGame()
         {
@@ -33,7 +36,8 @@ namespace ChessEngine
 
         private void TurnListener(object e, TurnEventArgs eventArgs)
         {
-            if (Players.PlayerOne.Equals(eventArgs.Player))
+            IPiece piece = e as IPiece;
+            if (Players.PlayerOne.Equals(piece.Player))
             {
                 Players.PlayerOne.Turn = false;
                 Players.PlayerTwo.Turn = true;
@@ -43,6 +47,9 @@ namespace ChessEngine
                 Players.PlayerTwo.Turn = false;
                 Players.PlayerOne.Turn = true;
             }
+            turnMessage = eventArgs.PieceCaptured ? 
+                        $"{piece.GetType().Name} captured {eventArgs.CapturedPiece.GetType().Name} {piece.Id}":
+                        $"{piece.GetType().Name} to {piece.Id}"; 
         }
     }
 }

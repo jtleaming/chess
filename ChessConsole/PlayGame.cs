@@ -33,6 +33,7 @@ namespace ChessConsole
                     {
                         Console.Clear();
                         playerToMove.Move(moves[0], moves[1]);
+                        Console.WriteLine(chessGame.TurnMessage+"\r\ni");
                         errorMessage = string.Empty;
                     }
                     catch (Exception e)

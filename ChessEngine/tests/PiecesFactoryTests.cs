@@ -68,23 +68,15 @@ namespace ChessEngine.tests
             playerTwoPieces.Where(p => p.Id == "c8" || p.Id == "f8").Should().AllBeOfType<Bishop>();
         }
         [Fact]
-        public void GetPlayerPieces_WhenPlayerFile1AndRankD_ShouldReturnKing()
+        public void GetPlayerPieces_WhenPlayerFileE_ShouldReturnKing()
         {
-            playerOnePieces.First(p => p.Id == "d1").Should().BeOfType<King>();
-        }
-        [Fact]
-        public void GetPlayerPieces_WhenPlayerFile8AndRankE_ShouldReturnKing()
-        {
+            playerOnePieces.First(p => p.Id == "e1").Should().BeOfType<King>();
             playerTwoPieces.First(p => p.Id == "e8").Should().BeOfType<King>();
         }
         [Fact]
-        public void GetPlayerPieces_WhenPlayerOneFile1AndRankE_ShouldReturnQueen()
+        public void GetPlayerPieces_WhenPlayerFileD_ShouldReturnQueen()
         {
-            playerOnePieces.First(p => p.Id == "e1").Should().BeOfType<Queen>();
-        }
-        [Fact]
-        public void GetPlayerPieces_WhenPlayerFile8AndRankE_ShouldReturnQueen()
-        {
+            playerOnePieces.First(p => p.Id == "d1").Should().BeOfType<Queen>();
             playerTwoPieces.First(p => p.Id == "d8").Should().BeOfType<Queen>();
         }
     }

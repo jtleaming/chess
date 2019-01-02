@@ -58,18 +58,6 @@ namespace ChessEngine.tests
             Assert.Throws<InvalidMoveException>(() => pawn.Move(mockNewSquare.Object));
         }
         [Fact]
-        public void Pawn_AfterFirstMove_FirstMoveShouldBeFalse()
-        {
-            mockNewSquare.Setup(s => s.Position).Returns(('b', '3'));
-            mockPlayer.SetupProperty(p => p.Turn, true);
-
-            pawn.FirstMove.Should().BeTrue();
-
-            pawn.Move(mockNewSquare.Object);
-
-            pawn.FirstMove.Should().BeFalse();
-        }
-        [Fact]
         public void Pawn_WhenFirstMoveFalse_MoveTwoFileShouldThrowInvalidMoveException()
         {
             mockNewSquare.Setup(s => s.Position).Returns(('b', '3'));

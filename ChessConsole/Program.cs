@@ -11,6 +11,7 @@ namespace ChessConsole
     {
         static void Main(string[] args)
         {
+            Console.Title = "Chess";
             var chessGame = new Game();
             chessGame.CreateGame();
             PlayGame.Play(chessGame);

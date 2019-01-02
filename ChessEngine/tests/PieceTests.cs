@@ -109,5 +109,16 @@ namespace ChessEngine.tests
             mockNewSquare.Setup(s => s.Piece.Player).Returns(player.Object);
             Assert.Throws<InvalidMoveException>(() => piece.Move(mockNewSquare.Object));
         }
+        [Fact]
+        public void Piece_AfterFirstMove_FirstMoveShouldBeFalse()
+        {
+            mockNewSquare.Setup(s => s.Position).Returns(('b', '3'));
+
+            piece.FirstMove.Should().BeTrue();
+
+            piece.Move(mockNewSquare.Object);
+
+            piece.FirstMove.Should().BeFalse();
+        }
     }
 }
