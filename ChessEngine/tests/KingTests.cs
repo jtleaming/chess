@@ -23,7 +23,6 @@ namespace ChessEngine.tests
             mockNewSquare = new Mock<ISquare>();
 
             mockCurrentSquare.Setup(s => s.Position).Returns(('d', '4'));
-            mockCurrentSquare.SetupAllProperties();
 
             mockPlayer.Setup(p => p.Turn).Returns(true);
 
@@ -85,6 +84,7 @@ namespace ChessEngine.tests
             mockNewSquare.Setup(s => s.Position).Returns(('h', '1'));
             mockNewSquare.Setup(s => s.Piece).Returns(mockPiece.Object);
 
+            mockCurrentSquare.SetupAllProperties();
             king.Move(mockNewSquare.Object);
 
             mockCurrentSquare.Object.Piece.Should().Be(mockPiece.Object);

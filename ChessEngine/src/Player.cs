@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
 
@@ -9,6 +10,7 @@ namespace ChessEngine
     public class Player : IPlayer
     {
         private readonly IBoard board;
+        private readonly Leaps leaps;
 
         public List<IPiece> Pieces { get;} = new List<IPiece>();
         public bool Turn { get; set; }
@@ -20,6 +22,7 @@ namespace ChessEngine
         {
             Pieces = pieces(squares, this);
             this.board = board;
+            this.leaps = new Leaps(board);
         }
 
         public void Move(string pieceToMove, string locationToMove)
@@ -27,7 +30,7 @@ namespace ChessEngine
             try
             {
                 var piece = Pieces.FirstOrDefault(p => p.Id == pieceToMove);
-                board.CheckForPiecesBetween(pieceToMove, locationToMove);
+                leaps.CheckForPiecesBetween(pieceToMove, locationToMove);
                 piece.Move(board.Squares[locationToMove]);
             }
             catch (NullReferenceException)
