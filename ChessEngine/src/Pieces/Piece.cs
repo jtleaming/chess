@@ -31,6 +31,7 @@ namespace ChessEngine.Pieces
         {
             bool pieceCaptured = false;
             IPiece capturedPiece = null;
+
             if (!player.Turn)
             {
                 throw new InvalidMoveException("It is not the players turn");
@@ -42,11 +43,6 @@ namespace ChessEngine.Pieces
             }
 
             if(CheckRules(newSquare))
-            {
-                throw new InvalidMoveException();
-            }
-
-            if(this.GetType() != typeof(Knight) && CrossesOverPlayer(newSquare))
             {
                 throw new InvalidMoveException();
             }
@@ -73,10 +69,6 @@ namespace ChessEngine.Pieces
 
         protected abstract bool CheckRules(ISquare newSquare);
 
-        private bool CrossesOverPlayer(ISquare newSquare)
-        {
-            return false;
-        }
         private void Capture(IPiece piece)
         {
             piece.Player.Pieces.Remove(piece);

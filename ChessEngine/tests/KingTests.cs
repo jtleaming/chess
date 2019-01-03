@@ -3,6 +3,7 @@ using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
 using ChessEngine.Pieces;
+using FluentAssertions;
 using Moq;
 using Xunit;
 
@@ -22,6 +23,8 @@ namespace ChessEngine.tests
             mockNewSquare = new Mock<ISquare>();
 
             mockCurrentSquare.Setup(s => s.Position).Returns(('d', '4'));
+            mockCurrentSquare.SetupAllProperties();
+
             mockPlayer.Setup(p => p.Turn).Returns(true);
 
             king = new King(mockCurrentSquare.Object, mockPlayer.Object);
@@ -50,6 +53,41 @@ namespace ChessEngine.tests
             mockNewSquare.Setup(s => s.Position).Returns((file, rank));
             var validMove = Record.Exception(() => king.Move(mockNewSquare.Object));
             Assert.Null(validMove);
+        }
+        [Fact]
+        public void King_WhenMoveToSquareWithCurrentPlayerRookAndRookFirstMove_ShoudlBeValidMove()
+        {
+            var mockPiece = new Mock<IPiece>();
+            mockPiece.Setup(p => p.Player).Returns(mockPlayer.Object);
+            mockPiece.Setup(p => p.FirstMove).Returns(true);
+            mockPiece.Setup(p => p.GetType()).Returns(typeof(Rook));
+
+            mockCurrentSquare.Setup(s => s.Position).Returns(('e', '1'));
+
+            mockNewSquare.Setup(s => s.Position).Returns(('h', '1'));
+            mockNewSquare.Setup(s => s.Piece).Returns(mockPiece.Object);
+
+            var validMove = Record.Exception(() => king.Move(mockNewSquare.Object));
+
+            Assert.Null(validMove);
+        }
+
+        [Fact]
+        public void Move_WhenCastlinIsTrue_ShouldSwapKingAndRookSquares()
+        {
+            var mockPiece = new Mock<IPiece>();
+            mockPiece.Setup(p => p.Player).Returns(mockPlayer.Object);
+            mockPiece.Setup(p => p.FirstMove).Returns(true);
+            mockPiece.Setup(p => p.GetType()).Returns(typeof(Rook));
+
+            mockCurrentSquare.Setup(s => s.Position).Returns(('e', '1'));
+
+            mockNewSquare.Setup(s => s.Position).Returns(('h', '1'));
+            mockNewSquare.Setup(s => s.Piece).Returns(mockPiece.Object);
+
+            king.Move(mockNewSquare.Object);
+
+            mockCurrentSquare.Object.Piece.Should().Be(mockPiece.Object);
         }
     }
 }

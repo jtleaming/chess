@@ -13,16 +13,15 @@ namespace ChessConsole
         {
             var gameStarted = true;
             string errorMessage = string.Empty;
-            while(gameStarted)
+            while (gameStarted)
             {
                 var playerToMove = GetPlayer(chessGame);
-
                 Console.WriteLine(DrawBoard(chessGame.Board.Squares.ToList()));
                 Console.WriteLine(errorMessage);
                 Console.WriteLine($"Player {playerToMove.IsPlayer}'s move:");
                 var moves = Console.ReadLine().Split(' ');
 
-                if(moves[0] == "exit")
+                if (moves[0] == "exit")
                 {
                     Console.WriteLine("Game ended");
                     gameStarted = false;
@@ -33,7 +32,7 @@ namespace ChessConsole
                     {
                         Console.Clear();
                         playerToMove.Move(moves[0], moves[1]);
-                        Console.WriteLine(chessGame.TurnMessage+"\r\ni");
+                        Console.WriteLine(chessGame.TurnMessage + "\r\n");
                         errorMessage = string.Empty;
                     }
                     catch (Exception e)
@@ -54,6 +53,7 @@ namespace ChessConsole
             StringBuilder board = new StringBuilder();
             char currentRank = '1';
             int j = 64;
+            board.Append("\t\t\t");
             for (int i = 57; i <= j; i++)
             {
                 if (squares[i - 1].Value.Occupied)
@@ -70,6 +70,7 @@ namespace ChessConsole
                     i -= 16;
                     j -= 8;
                     board.AppendLine();
+                    board.Append("\t\t\t");
                 }
             }
             return board.ToString();

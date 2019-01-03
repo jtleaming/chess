@@ -45,6 +45,10 @@ namespace GameEngine.tests
             newBoard.Squares["c3"].Piece = new Mock<IPiece>().Object;
             Assert.Throws<InvalidMoveException>(() => newBoard.CheckForPiecesBetween("a1", "e5"));
             Assert.Throws<InvalidMoveException>(() => newBoard.CheckForPiecesBetween("e5", "a1"));
+
+            newBoard.Squares["g3"].Piece = new Mock<IPiece>().Object;
+            Assert.Throws<InvalidMoveException>(() => newBoard.CheckForPiecesBetween("e5", "h2"));
+            Assert.Throws<InvalidMoveException>(() => newBoard.CheckForPiecesBetween("h2", "e5"));
         }
         [Fact]
         public void CheckForPiecesBetween_WhenGivenVerticalLocations_ShouldThrowInvalidMoveExceptionIfAnySquaresBetweenAreOccupied()

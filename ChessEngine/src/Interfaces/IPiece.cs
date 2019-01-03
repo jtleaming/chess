@@ -13,5 +13,6 @@ namespace ChessEngine.Interfaces
         event EventHandler<TurnEventArgs> TurnHandler;
         void Move(ISquare newSquare);
         void RemoveFromBoard();
+        Type GetType();
     }
 }

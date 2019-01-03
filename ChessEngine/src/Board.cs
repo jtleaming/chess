@@ -86,16 +86,36 @@ namespace ChessEngine
             int numberOfSquaresToCheck = GetNumberOfSquares(pieceToMove[0], locationToMove[0]);
             if(pieceToMove[1] < locationToMove[1])
             {
-                for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                if (pieceToMove[0] > locationToMove[0])
                 {
-                    yield return Squares[((char)(pieceToMove[0] + i)).ToString() + (char)(pieceToMove[1] + i)];
+                    for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                    {
+                        yield return Squares[((char)(pieceToMove[0] - i)).ToString() + (char)(pieceToMove[1] + i)];
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                    {
+                        yield return Squares[((char)(pieceToMove[0] + i)).ToString() + (char)(pieceToMove[1] + i)];
+                    }
                 }
             }
             else
             {
-                for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                if(pieceToMove[0] < locationToMove[0])
                 {
-                    yield return Squares[((char)(pieceToMove[0] - i)).ToString() + (char)(pieceToMove[1] - i)];
+                    for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                    {
+                        yield return Squares[((char)(pieceToMove[0] + i)).ToString() + (char)(pieceToMove[1] - i)];
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i <= numberOfSquaresToCheck; i++)
+                    {
+                        yield return Squares[((char)(pieceToMove[0] - i)).ToString() + (char)(pieceToMove[1] - i)];
+                    }
                 }
             }
         }
