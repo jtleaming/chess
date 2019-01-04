@@ -3,6 +3,7 @@ using System.Linq;
 using ChessEngine.Factory;
 using ChessEngine.Interfaces;
 using ChessEngine.Pieces;
+using ChessEngine.tests.Fixtures;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -22,17 +23,9 @@ namespace ChessEngine.tests
         public PiecesFactoryTests()
         {
             factory = new PiecesFactory();
-            squares = new List<ISquare>();
+            squares = MockBoard.MockSquares.Select(d => d.Value).ToList();
             mockPlayerOne = new Mock<IPlayer>();
             mockPlayerTwo = new Mock<IPlayer>();
-            for (int i = 0; i < 64; i++)
-            {
-                var mockSquare = new Mock<ISquare>();
-                mockSquare.Setup(s => s.Position).Returns((File[i], Rank[i]));
-                mockSquare.Setup(s => s.Id).Returns(File[i].ToString()+Rank[i]);
-                mockSquare.SetupProperty(s => s.Piece);
-                squares.Add(mockSquare.Object);
-            };
 
             playerOnePieces = factory.GetPlayerPieces(squares.GetRange(0,16), mockPlayerOne.Object);
             playerTwoPieces = factory.GetPlayerPieces(squares.GetRange(48, 16), mockPlayerTwo.Object);

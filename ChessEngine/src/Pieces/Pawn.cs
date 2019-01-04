@@ -12,6 +12,8 @@ namespace ChessEngine.Pieces
         {
         }
 
+        public (bool canMove, Pawn pawn, ISquare squaresToMove) EnPassant { get; set; }
+
         protected override bool CheckRules(ISquare newSquare)
         { 
             var squaresToMove = Math.Abs((int)newSquare.Position.rank - (int)Square.Position.rank);
