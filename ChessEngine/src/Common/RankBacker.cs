@@ -7,7 +7,7 @@ namespace ChessEngine.Common
     {
         public static RankBacker GetRank()
         {
-        return new RankBacker();
+            return new RankBacker();
         }
         private RankBacker()
         {}

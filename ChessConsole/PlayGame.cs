@@ -58,7 +58,9 @@ namespace ChessConsole
             {
                 if (squares[i - 1].Value.Occupied)
                 {
-                    board.Append($"{squares[i - 1].Value.Piece.GetType().Name.First()}  ");
+                    var name = squares[i - 1].Value.Piece.GetType().Name;
+                    name = name == "Knight" ? "N" : name.First().ToString();
+                    board.Append($"{name}  ");
                 }
                 else
                 {
