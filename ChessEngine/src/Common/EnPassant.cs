@@ -21,7 +21,10 @@ namespace ChessEngine.Common
             if (firstCondition || secondCondition)
             {
                 IPawn adjacentPawn = firstCondition ? firstAdjacentSquare.Piece as IPawn : secondAdjacentSquare.Piece as IPawn;
-                adjacentPawn.EnPassant = (true, pawn, squaresToMove);
+                ISquare square = pawn.Player.IsPlayer == "Two" ?
+                Squares[squaresToMove.Position.file.ToString() + (char.GetNumericValue(squaresToMove.Position.rank) + 1)] :
+                Squares[squaresToMove.Position.file.ToString() + (char.GetNumericValue(squaresToMove.Position.rank) - 1)];
+                adjacentPawn.EnPassant = (pawn, square);
             }
 
         }

@@ -11,8 +11,20 @@ namespace ChessEngine.Pieces
         public Pawn(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
         }
+        public (IPawn pieceToCapture, ISquare squareToMove) EnPassant { get; set; }
 
-        public (bool canEnPassant, IPawn pieceToCapture, ISquare squareToMove) EnPassant { get; set; }
+        public override void Move(ISquare newSquare)
+        {
+            if(EnPassant.squareToMove?.Id == newSquare.Id)
+            {
+                // EnPassant.pieceToCapture.Move(EnPassant.squareToMove);
+                newSquare.Piece = EnPassant.pieceToCapture;
+            }
+
+            base.Move(newSquare);
+
+            EnPassant = (null, null);
+        }
 
         protected override bool CheckRules(ISquare newSquare)
         {

@@ -12,41 +12,81 @@ namespace ChessEngine.tests
 {
     public class EnPassantTests
     {
-        [Fact]
-        public void CheckEnPassant_WhenPawnAdvancesTwoSquaresOnFirstMoveAndOpponentsPawnOnAdjacentFile_ThenOpponentsPawnGivenEnPassant()
+        private EnPassant enPassant;
+        private Mock<IPlayer> playerOne;
+        private Mock<IPlayer> playerTwo;
+        private Mock<IPawn> mockPawn;
+        private Mock<ISquare> mockNewSquare;
+        private Mock<IPawn> otherPawn;
+        private Mock<ISquare> otherPawnSquare;
+
+        public EnPassantTests()
         {
-            EnPassant enPassant = new EnPassant
+            enPassant = new EnPassant
             {
                 Squares = MockBoard.MockSquares
             };
 
-            Mock<IPlayer> playerOne = new Mock<IPlayer>();
-            Mock<IPlayer> playerTwo = new Mock<IPlayer>();
+            playerOne = new Mock<IPlayer>();
+            playerOne.Setup(p => p.IsPlayer).Returns("One");
 
-            Mock<IPawn> mockPiece = new Mock<IPawn>();
-            mockPiece.Setup(p => p.Position).Returns(('d', '7'));
-            mockPiece.Setup(p => p.Player).Returns(playerTwo.Object);
+            playerTwo = new Mock<IPlayer>();
+            playerTwo.Setup(p => p.IsPlayer).Returns("Two");
 
-            Mock<ISquare> mockNewSquare = new Mock<ISquare>();
+            mockPawn = new Mock<IPawn>();
+            mockNewSquare = new Mock<ISquare>();
+            otherPawn = new Mock<IPawn>();
+            otherPawnSquare = new Mock<ISquare>();
+        }
+
+        [Fact]
+        public void CheckEnPassant_WhenPawnAdvancesTwoSquaresOnFirstMoveAndOpponentsPawnOnAdjacentFile_ThenOpponentsPawnGivenEnPassant()
+        {
+            mockPawn.Setup(p => p.Position).Returns(('d', '7'));
+            mockPawn.Setup(p => p.Player).Returns(playerTwo.Object);
+
             mockNewSquare.Setup(s => s.Position).Returns(('d', '5'));
 
-            Mock<IPawn> otherPiece = new Mock<IPawn>();
-            otherPiece.Setup(p => p.Position).Returns(('e', '5'));
-            otherPiece.Setup(p => p.Player).Returns(playerOne.Object);
-            otherPiece.Setup(p => p.GetType()).Returns(typeof(Pawn));
-            otherPiece.SetupProperty(p => p.EnPassant);
+            otherPawn.Setup(p => p.Position).Returns(('e', '5'));
+            otherPawn.Setup(p => p.Player).Returns(playerOne.Object);
+            otherPawn.Setup(p => p.GetType()).Returns(typeof(Pawn));
+            otherPawn.SetupProperty(p => p.EnPassant);
 
-            var squareE5 = new Mock<ISquare>();
-            squareE5.Setup(s => s.Piece).Returns(otherPiece.Object);
-            squareE5.Setup(s => s.Occupied).Returns(true);
-            squareE5.Setup(s => s.Position).Returns(('e', '5'));
-            squareE5.Setup(s => s.Id).Returns("e5");
-            enPassant.Squares["e5"] = squareE5.Object;
+            otherPawnSquare.Setup(s => s.Piece).Returns(otherPawn.Object);
+            otherPawnSquare.Setup(s => s.Occupied).Returns(true);
+            otherPawnSquare.Setup(s => s.Position).Returns(('e', '5'));
+            otherPawnSquare.Setup(s => s.Id).Returns("e5");
+            enPassant.Squares["e5"] = otherPawnSquare.Object;
 
-            enPassant.CheckEnPassant(mockPiece.Object, mockNewSquare.Object);
+            enPassant.CheckEnPassant(mockPawn.Object, mockNewSquare.Object);
 
-            Assert.True(otherPiece.Object.EnPassant.canEnPassant);
-            otherPiece.Object.EnPassant.pieceToCapture.Should().Be(mockPiece.Object);
+            otherPawn.Object.EnPassant.pieceToCapture.Should().Be(mockPawn.Object);
+            otherPawn.Object.EnPassant.squareToMove.Position.Should().Be(('d','6'));
+
+        }
+        [Fact]
+        public void OtherCheckEnPassant_WhenPawnAdvancesTwoSquaresOnFirstMoveAndOpponentsPawnOnAdjacentFile_ThenOpponentsPawnGivenEnPassant()
+        {
+            mockPawn.Setup(p => p.Position).Returns(('d', '2'));
+            mockPawn.Setup(p => p.Player).Returns(playerOne.Object);
+
+            mockNewSquare.Setup(s => s.Position).Returns(('d', '4'));
+
+            otherPawn.Setup(p => p.Position).Returns(('e', '4'));
+            otherPawn.Setup(p => p.Player).Returns(playerTwo.Object);
+            otherPawn.Setup(p => p.GetType()).Returns(typeof(Pawn));
+            otherPawn.SetupProperty(p => p.EnPassant);
+
+            otherPawnSquare.Setup(s => s.Piece).Returns(otherPawn.Object);
+            otherPawnSquare.Setup(s => s.Occupied).Returns(true);
+            otherPawnSquare.Setup(s => s.Position).Returns(('e', '4'));
+            otherPawnSquare.Setup(s => s.Id).Returns("e4");
+            enPassant.Squares["e4"] = otherPawnSquare.Object;
+
+            enPassant.CheckEnPassant(mockPawn.Object, mockNewSquare.Object);
+
+            otherPawn.Object.EnPassant.pieceToCapture.Should().Be(mockPawn.Object);
+            otherPawn.Object.EnPassant.squareToMove.Position.Should().Be(('d','3'));
 
         }
     }
