@@ -6,6 +6,7 @@ namespace ChessEngine.Common
     public class EnPassant
     {
         public Dictionary<string, ISquare> Squares;
+
         public EnPassant()
         {
         }

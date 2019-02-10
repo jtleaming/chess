@@ -17,7 +17,6 @@ namespace ChessEngine.Pieces
         {
             if(EnPassant.squareToMove?.Id == newSquare.Id)
             {
-                // EnPassant.pieceToCapture.Move(EnPassant.squareToMove);
                 newSquare.Piece = EnPassant.pieceToCapture;
             }
 

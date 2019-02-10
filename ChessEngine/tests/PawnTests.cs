@@ -127,7 +127,14 @@ namespace ChessEngine.tests
             mockNewSquare.Setup(s => s.Occupied).Returns(true);
 
             Mock<IPawn> mockOtherPawn = new Mock<IPawn>();
+            Mock<IPlayer> mockOtherPlayer = new Mock<IPlayer>();
+
+            mockOtherPlayer.Setup(pl => pl.Pieces).Returns(
+               new List<IPiece> { mockOtherPawn.Object }
+            );
+
             mockOtherPawn.Setup(p => p.Position).Returns(('c', '2'));
+            mockOtherPawn.Setup(pa => pa.Player).Returns(mockOtherPlayer.Object);
 
             pawn.EnPassant = (mockOtherPawn.Object, mockNewSquare.Object);
 
