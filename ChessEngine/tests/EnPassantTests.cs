@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using ChessEngine.Common;
 using ChessEngine.Interfaces;
 using ChessEngine.Pieces;
+using ChessEngine.tests.Fixtures;
+using FluentAssertions;
 using Moq;
 using Xunit;
 
@@ -10,48 +13,42 @@ namespace ChessEngine.tests
     public class EnPassantTests
     {
         [Fact]
-        public void CheckEnPassant_WhenPawnAdvancesTwoSquaresOnFirsstMoveAndOpponentsPawnOnAdjacentFile_ThenOpponentsPawnGivenEnPassant()
+        public void CheckEnPassant_WhenPawnAdvancesTwoSquaresOnFirstMoveAndOpponentsPawnOnAdjacentFile_ThenOpponentsPawnGivenEnPassant()
         {
-            EnPassant enPassant = new EnPassant();
+            EnPassant enPassant = new EnPassant
+            {
+                Squares = MockBoard.MockSquares
+            };
 
             Mock<IPlayer> playerOne = new Mock<IPlayer>();
             Mock<IPlayer> playerTwo = new Mock<IPlayer>();
 
-            Mock<IPiece> mockPawn = new Mock<IPiece>();
-            mockPawn.Setup(p => p.Position).Returns(('d','7'));
-            mockPawn.Setup(p => p.Player).Returns(playerTwo.Object);
+            Mock<IPawn> mockPiece = new Mock<IPawn>();
+            mockPiece.Setup(p => p.Position).Returns(('d', '7'));
+            mockPiece.Setup(p => p.Player).Returns(playerTwo.Object);
 
             Mock<ISquare> mockNewSquare = new Mock<ISquare>();
             mockNewSquare.Setup(s => s.Position).Returns(('d', '5'));
 
-            Mock<IPiece> otherPawn = new Mock<IPiece>();
-            otherPawn.Setup(p => p.Position).Returns(('e','5'));
-            otherPawn.Setup(p => p.Player).Returns(playerOne.Object);
-            otherPawn.SetupProperty(p => (Pawn)p.EnPassant);
+            Mock<IPawn> otherPiece = new Mock<IPawn>();
+            otherPiece.Setup(p => p.Position).Returns(('e', '5'));
+            otherPiece.Setup(p => p.Player).Returns(playerOne.Object);
+            otherPiece.Setup(p => p.GetType()).Returns(typeof(Pawn));
+            otherPiece.SetupProperty(p => p.EnPassant);
 
-            enPassant.CheckEnPassant(mockPawn.Object as Pawn, new Mock<ISquare>().Object);
+            var squareE5 = new Mock<ISquare>();
+            squareE5.Setup(s => s.Piece).Returns(otherPiece.Object);
+            squareE5.Setup(s => s.Occupied).Returns(true);
+            squareE5.Setup(s => s.Position).Returns(('e', '5'));
+            squareE5.Setup(s => s.Id).Returns("e5");
+            enPassant.Squares["e5"] = squareE5.Object;
+
+            enPassant.CheckEnPassant(mockPiece.Object, mockNewSquare.Object);
+
+            Assert.True(otherPiece.Object.EnPassant.canEnPassant);
+            otherPiece.Object.EnPassant.pieceToCapture.Should().Be(mockPiece.Object);
+
         }
     }
 
-    internal class EnPassant
-    {
-        public Dictionary<string,ISquare> Squares;
-        public EnPassant()
-        {
-        }
-
-        internal void CheckEnPassant(Pawn pawn, ISquare squaresToMove)
-        {
-            var firstAdjacentSquare = Squares[squaresToMove.Position.file.ToString()+(squaresToMove.Position.rank-1)];
-            var secondAdjacentSquare = Squares[squaresToMove.Position.file.ToString()+(squaresToMove.Position.rank+1)];
-            if(firstAdjacentSquare.Occupied && firstAdjacentSquare.Piece is Pawn)
-            {
-                if(firstAdjacentSquare.Piece.Player != pawn.Player)
-                {
-                    Pawn adjacentPawn = firstAdjacentSquare.Piece as Pawn;
-                    adjacentPawn.EnPassant = (true, pawn, squaresToMove);
-                }
-            }
-        }
-    }
 }

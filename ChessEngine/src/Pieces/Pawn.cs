@@ -6,16 +6,16 @@ using ChessEngine.Interfaces;
 
 namespace ChessEngine.Pieces
 {
-    public class Pawn : Piece
+    public class Pawn : Piece, IPawn
     {
         public Pawn(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
         }
 
-        public (bool canMove, Pawn pawn, ISquare squaresToMove) EnPassant { get; set; }
+        public (bool canEnPassant, IPawn pieceToCapture, ISquare squareToMove) EnPassant { get; set; }
 
         protected override bool CheckRules(ISquare newSquare)
-        { 
+        {
             var squaresToMove = Math.Abs((int)newSquare.Position.rank - (int)Square.Position.rank);
             int filesToMove = Math.Abs((int)newSquare.Position.file - (int)Square.Position.file);
             List<bool> rules = new List<bool>
