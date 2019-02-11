@@ -2,17 +2,20 @@ using System;
 using System.Linq;
 using ChessEngine.Interfaces;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace ChessEngine.tests
 {
     public class GameTests
     {
-        private Game game = new Game();
+        private Game game;
+        private Mock<IEnPassant> enPassant = new Mock<IEnPassant>(); 
 
         public GameTests()
         {
-            game.CreateGame();
+            game = new Game();
+            game.CreateGame(enPassant.Object);
         }
 
         [Fact]
@@ -88,6 +91,13 @@ namespace ChessEngine.tests
 
             game.Board.Squares.First(s => s.Value.Id == "b2").Value.Occupied.Should().BeFalse();
             game.Board.Squares.First(s => s.Value.Id == "b3").Value.Occupied.Should().BeTrue();
+        }
+        [Fact]
+        public void EnPassantListener_WhenPawnMovesOnFirstMove_ShouldCheckForEnPassant()
+        {
+            game.Players.PlayerOne.Move("b2", "b3");
+
+            enPassant.Verify(e => e.CheckEnPassant(It.IsAny<IPawn>(), It.IsAny<ISquare>()));
         }
     }
 }

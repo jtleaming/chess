@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
 
@@ -15,7 +16,7 @@ namespace ChessEngine.Pieces
 
         public override void Move(ISquare newSquare)
         {
-            if(EnPassant.squareToMove?.Id == newSquare.Id)
+            if (EnPassant.squareToMove?.Id == newSquare.Id)
             {
                 newSquare.Piece = EnPassant.pieceToCapture;
             }

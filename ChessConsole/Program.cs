@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ChessEngine;
+using ChessEngine.Common;
 using ChessEngine.Interfaces;
 
 namespace ChessConsole
@@ -13,7 +14,8 @@ namespace ChessConsole
         {
             Console.Title = "Chess";
             var chessGame = new Game();
-            chessGame.CreateGame();
+            var enPassantChecker = new EnPassant();
+            chessGame.CreateGame(enPassantChecker);
             PlayGame.Play(chessGame);
         }
     }

@@ -3,9 +3,9 @@ using ChessEngine.Interfaces;
 
 namespace ChessEngine.Common
 {
-    public class EnPassant
+    public class EnPassant : IEnPassant
     {
-        public Dictionary<string, ISquare> Squares;
+        public Dictionary<string, ISquare> Squares { get; set; }
 
         public EnPassant()
         {
