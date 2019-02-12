@@ -13,11 +13,23 @@ namespace ChessEngine.Common
 
         public void CheckEnPassant(IPawn pawn, ISquare squaresToMove)
         {
-            var firstAdjacentSquare = Squares[char.ConvertFromUtf32(squaresToMove.Position.file - 1) + char.GetNumericValue(squaresToMove.Position.rank)];
-            var secondAdjacentSquare = Squares[char.ConvertFromUtf32(squaresToMove.Position.file + 1) + char.GetNumericValue(squaresToMove.Position.rank)];
+            ISquare firstAdjacentSquare = null;
+            ISquare secondAdjacentSquare = null;
 
-            bool firstCondition = firstAdjacentSquare.Occupied && firstAdjacentSquare.Piece is IPawn && firstAdjacentSquare.Piece.Player != pawn.Player;
-            bool secondCondition = secondAdjacentSquare.Occupied && secondAdjacentSquare.Piece is IPawn && secondAdjacentSquare.Piece.Player != pawn.Player;
+            bool firstCondition = false;
+            bool secondCondition = false;
+
+            if(squaresToMove.Position.file != 'a')
+            {
+                firstAdjacentSquare = Squares[char.ConvertFromUtf32(squaresToMove.Position.file - 1) + char.GetNumericValue(squaresToMove.Position.rank)];
+                firstCondition = firstAdjacentSquare.Occupied && firstAdjacentSquare.Piece is IPawn && firstAdjacentSquare.Piece.Player != pawn.Player;
+            }
+
+            if(squaresToMove.Position.file != 'h')
+            {
+                secondAdjacentSquare = Squares[char.ConvertFromUtf32(squaresToMove.Position.file + 1) + char.GetNumericValue(squaresToMove.Position.rank)];
+                secondCondition = secondAdjacentSquare.Occupied && secondAdjacentSquare.Piece is IPawn && secondAdjacentSquare.Piece.Player != pawn.Player;
+            }
 
             if (firstCondition || secondCondition)
             {
@@ -27,7 +39,6 @@ namespace ChessEngine.Common
                 Squares[squaresToMove.Position.file.ToString() + (char.GetNumericValue(squaresToMove.Position.rank) - 1)];
                 adjacentPawn.EnPassant = (pawn, square);
             }
-
         }
     }
 }

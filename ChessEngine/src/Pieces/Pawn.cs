@@ -12,7 +12,7 @@ namespace ChessEngine.Pieces
         public Pawn(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
         }
-        public (IPawn pieceToCapture, ISquare squareToMove) EnPassant { get; set; }
+        public (IPawn pieceToCapture, ISquare squareToMove) EnPassant { get; set; } = (null, null);
 
         public override void Move(ISquare newSquare)
         {
