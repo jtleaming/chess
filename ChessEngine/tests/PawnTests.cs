@@ -143,5 +143,38 @@ namespace ChessEngine.tests
             pawn.Player.CapturedPieces.Should().Contain(mockOtherPawn.Object);
         }
 
+        [Fact]
+        public void Pawn_WhenMovesToEnPassantSquare_ThenEnPassantPieceSquareSetToNull()
+        {
+            mockPlayer.Setup(p => p.Turn).Returns(true);
+
+            mockNewSquare.SetupProperty(p => p.Piece);
+            mockNewSquare.Setup(s => s.Position).Returns(('c', '3'));
+            mockNewSquare.Setup(s => s.Id).Returns(("c3"));
+            mockNewSquare.Setup(s => s.Occupied).Returns(true);
+
+            Mock<IPawn> mockOtherPawn = new Mock<IPawn>();
+            Mock<IPlayer> mockOtherPlayer = new Mock<IPlayer>();
+            Mock<ISquare> mockOtherPawnSquare = new Mock<ISquare>();
+
+            mockOtherPawnSquare.Setup(s => s.Position).Returns(('c', '2'));
+            mockOtherPawnSquare.Setup(s => s.Piece).Returns(mockOtherPawn.Object);
+
+            mockOtherPlayer.Setup(pl => pl.Pieces).Returns(
+               new List<IPiece> { mockOtherPawn.Object }
+            );
+
+            mockOtherPawn.Setup(p => p.Position).Returns(('c', '2'));
+            mockOtherPawn.Setup(pa => pa.Player).Returns(mockOtherPlayer.Object);
+            mockOtherPawn.Setup(pa => pa.Square).Returns(mockOtherPawnSquare.Object);
+
+
+            pawn.EnPassant = (mockOtherPawn.Object, mockNewSquare.Object);
+
+            pawn.Move(mockNewSquare.Object);
+
+            mockOtherPawnSquare.VerifySet(s => s.Piece = null);
+        }
+
     }
 }
