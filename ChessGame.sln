@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessEngine.tests", "ChessE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessConsole", "ChessConsole\ChessConsole.csproj", "{6D7898ED-3789-4AD7-8311-A2EA0C61585E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{C17AAC65-FEC9-4709-A71C-3676D2885544}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTests", "IntegrationTests\ConsoleTests\ConsoleTests.csproj", "{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,9 +64,22 @@ Global
 		{6D7898ED-3789-4AD7-8311-A2EA0C61585E}.Release|x64.Build.0 = Release|Any CPU
 		{6D7898ED-3789-4AD7-8311-A2EA0C61585E}.Release|x86.ActiveCfg = Release|Any CPU
 		{6D7898ED-3789-4AD7-8311-A2EA0C61585E}.Release|x86.Build.0 = Release|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Debug|x64.Build.0 = Debug|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Debug|x86.Build.0 = Debug|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Release|x64.ActiveCfg = Release|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Release|x64.Build.0 = Release|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Release|x86.ActiveCfg = Release|Any CPU
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D0ABAA76-2ED1-42CF-8B19-D1A1DAF9BBFE} = {F833B705-C76E-49FA-B3A3-4616CBF34A7A}
 		{F8E85933-A883-4B3C-A6EE-7E267563AFB7} = {F833B705-C76E-49FA-B3A3-4616CBF34A7A}
+		{E02C0AC4-CFEB-4F78-866D-D8F3C9AB2496} = {C17AAC65-FEC9-4709-A71C-3676D2885544}
 	EndGlobalSection
 EndGlobal

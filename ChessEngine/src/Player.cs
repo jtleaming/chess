@@ -12,13 +12,13 @@ namespace ChessEngine
         private readonly IBoard board;
         private readonly Leaps leaps;
 
-        public List<IPiece> Pieces { get;} = new List<IPiece>();
+        public List<IPiece> Pieces { get; } = new List<IPiece>();
         public bool Turn { get; set; }
 
         public List<IPiece> CapturedPieces { get; } = new List<IPiece>();
-        public string IsPlayer { get; set;}
+        public string IsPlayer { get; set; }
 
-        public Player(List<ISquare> squares,Func<List<ISquare>, IPlayer, List<IPiece>> pieces, IBoard board)
+        public Player(List<ISquare> squares, Func<List<ISquare>, IPlayer, List<IPiece>> pieces, IBoard board)
         {
             Pieces = pieces(squares, this);
             this.board = board;

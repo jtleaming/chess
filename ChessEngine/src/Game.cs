@@ -17,12 +17,16 @@ namespace ChessEngine
         private int whiteStartIndex = 0;
         private int blackStartIndex = 48;
         private string turnMessage;
+        private IEnPassant enPassantCheker;
 
-        public void CreateGame()
+        public void CreateGame(IEnPassant enPassantCheker)
         {
             PiecesFactory factory = new PiecesFactory();
             Board = new Board();
-            Players = (new Player(SetPlayerPieces(whiteStartIndex), factory.GetPlayerPieces, Board){ Turn = true, IsPlayer = "One" }, 
+            this.enPassantCheker = enPassantCheker;
+            this.enPassantCheker.Squares = Board.Squares;
+
+            Players = (new Player(SetPlayerPieces(whiteStartIndex), factory.GetPlayerPieces, Board) { Turn = true, IsPlayer = "One" },
                     new Player(SetPlayerPieces(blackStartIndex).Reverse<ISquare>(), factory.GetPlayerPieces, Board) { Turn = false, IsPlayer = "Two" });
 
             Players.PlayerOne.Pieces.ForEach(p => p.TurnHandler += TurnListener);
@@ -37,6 +41,11 @@ namespace ChessEngine
         private void TurnListener(object e, TurnEventArgs eventArgs)
         {
             IPiece piece = e as IPiece;
+
+            if (piece is IPawn)
+            {
+                enPassantCheker.CheckEnPassant(piece as IPawn, piece.Square);
+            }
             if (Players.PlayerOne.Equals(piece.Player))
             {
                 Players.PlayerOne.Turn = false;
@@ -47,9 +56,9 @@ namespace ChessEngine
                 Players.PlayerTwo.Turn = false;
                 Players.PlayerOne.Turn = true;
             }
-            turnMessage = eventArgs.PieceCaptured ? 
-                        $"{piece.GetType().Name} captured {eventArgs.CapturedPiece.GetType().Name} {piece.Id}":
-                        $"{piece.GetType().Name} to {piece.Id}"; 
+            turnMessage = eventArgs.PieceCaptured ?
+                        $"{piece.GetType().Name} captured {eventArgs.CapturedPiece.GetType().Name} {piece.Id}" :
+                        $"{piece.GetType().Name} to {piece.Id}";
         }
     }
 }
