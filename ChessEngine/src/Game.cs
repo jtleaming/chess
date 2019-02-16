@@ -23,11 +23,12 @@ namespace ChessEngine
         {
             PiecesFactory factory = new PiecesFactory();
             Board = new Board();
+            Leaps leaps = new Leaps(Board);
             this.enPassantCheker = enPassantCheker;
             this.enPassantCheker.Squares = Board.Squares;
 
-            Players = (new Player(SetPlayerPieces(whiteStartIndex), factory.GetPlayerPieces, Board) { Turn = true, IsPlayer = "One" },
-                    new Player(SetPlayerPieces(blackStartIndex).Reverse<ISquare>(), factory.GetPlayerPieces, Board) { Turn = false, IsPlayer = "Two" });
+            Players = (new Player(SetPlayerPieces(whiteStartIndex), factory.GetPlayerPieces, Board, leaps) { Turn = true, IsPlayer = "One" },
+                    new Player(SetPlayerPieces(blackStartIndex).Reverse<ISquare>(), factory.GetPlayerPieces, Board, leaps) { Turn = false, IsPlayer = "Two" });
 
             Players.PlayerOne.Pieces.ForEach(p => p.TurnHandler += TurnListener);
             Players.PlayerTwo.Pieces.ForEach(p => p.TurnHandler += TurnListener);

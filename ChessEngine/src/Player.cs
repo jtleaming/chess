@@ -10,7 +10,7 @@ namespace ChessEngine
     public class Player : IPlayer
     {
         private readonly IBoard board;
-        private readonly Leaps leaps;
+        private readonly ILeaps leaps;
 
         public List<IPiece> Pieces { get; } = new List<IPiece>();
         public bool Turn { get; set; }
@@ -18,11 +18,11 @@ namespace ChessEngine
         public List<IPiece> CapturedPieces { get; } = new List<IPiece>();
         public string IsPlayer { get; set; }
 
-        public Player(List<ISquare> squares, Func<List<ISquare>, IPlayer, List<IPiece>> pieces, IBoard board)
+        public Player(List<ISquare> squares, Func<List<ISquare>, IPlayer, List<IPiece>> pieces, IBoard board, ILeaps leaps)
         {
             Pieces = pieces(squares, this);
             this.board = board;
-            this.leaps = new Leaps(board);
+            this.leaps = leaps;
         }
 
         public void Move(string pieceToMove, string locationToMove)
@@ -30,7 +30,12 @@ namespace ChessEngine
             try
             {
                 var piece = Pieces.FirstOrDefault(p => p.Id == pieceToMove);
-                leaps.CheckForPiecesBetween(pieceToMove, locationToMove);
+
+                if (!(piece.GetType() == typeof(Pieces.Knight)))
+                {
+                    leaps.CheckForPiecesBetween(pieceToMove, locationToMove);
+                }
+
                 piece.Move(board.Squares[locationToMove]);
             }
             catch (NullReferenceException)

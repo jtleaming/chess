@@ -10,6 +10,7 @@ using ChessEngine.Exceptions;
 using static ChessEngine.Common.Singletons;
 using ChessEngine.Common;
 using System;
+using ChessEngine.Pieces;
 
 namespace ChessEngine.tests
 {
@@ -17,9 +18,12 @@ namespace ChessEngine.tests
     {
         private List<Mock<ISquare>> mockSquares;
         private IPlayer player = null;
-        private IPlayer Player => player = player == null ? new Player(mockSquares.Select(ms => ms.Object).ToList(), mockFactory, mockBoard.Object) : player;
         private Mock<IBoard> mockBoard;
         private List<Mock<IPiece>> mockPieces = new List<Mock<IPiece>>();
+        private Mock<ILeaps> leaps = new Mock<ILeaps>(MockBehavior.Strict);
+
+
+        private IPlayer Player => player = player == null ? new Player(mockSquares.Select(ms => ms.Object).ToList(), mockFactory, mockBoard.Object, leaps.Object) : player;
         public PlayerTests()
         {
             mockSquares = new List<Mock<ISquare>>();
@@ -76,14 +80,25 @@ namespace ChessEngine.tests
         [Fact]
         public void Move_WhenGivenPieceQuardenantsAndNewSquare_ShouldCallPieceMove()
         {
+            leaps.Setup(l => l.CheckForPiecesBetween(It.IsAny<string>(), It.IsAny<string>()));
             Player.Move("b2", "b3");
-
             mockPieces.FirstOrDefault(p => p.Object.Id == "b2").Verify(p => p.Move(It.IsAny<ISquare>()));
         }
         [Fact]
         public void Move_WhenGivenPieceQuardenantsWithoutPlayerPiece_ShouldThrowInvalidMoveException()
         {
             Assert.Throws<InvalidMoveException>(() => Player.Move("b3", "b4"));
+        }
+        [Fact]
+        public void Move_WhenPlayerPieceIsKnightAndLeapsOverPlayerPiece_ShouldNotCallCheckForPiecesBetween()
+        {
+            Player.Pieces.Remove(Player.Pieces.First(p => p.Id == "b1"));
+            Mock<IPiece> mockKnight = new Mock<IPiece>();
+            mockKnight.Setup(k => k.Id).Returns("b1");
+            mockKnight.Setup(k => k.GetType()).Returns(typeof(Knight));
+            Player.Pieces.Add(mockKnight.Object);
+
+            Player.Move("b1", "b4");
         }
     }
 }

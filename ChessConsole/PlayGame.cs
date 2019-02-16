@@ -30,7 +30,7 @@ namespace ChessConsole
                 {
                     try
                     {
-                        Console.Clear();
+                        ClearConsole();
                         playerToMove.Move(moves[0], moves[1]);
                         Console.WriteLine(chessGame.TurnMessage + "\r\n");
                         errorMessage = string.Empty;
@@ -42,6 +42,7 @@ namespace ChessConsole
                 }
             }
         }
+
 
         private static IPlayer GetPlayer(Game chessGame)
         {
@@ -76,6 +77,19 @@ namespace ChessConsole
                 }
             }
             return board.ToString();
+        }
+        private static void ClearConsole()
+        {
+            try
+            {
+                Console.Clear();
+            }
+            catch (Exception)
+            {
+                //Console based integration tests can't clear console
+                //since there is technically no buffer to clear.
+                //Catch exception and do nothing with it here.
+            }
         }
     }
 }

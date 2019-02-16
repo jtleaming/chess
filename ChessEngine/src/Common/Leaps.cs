@@ -6,7 +6,7 @@ using ChessEngine.Interfaces;
 
 namespace ChessEngine.Common
 {
-    public class Leaps
+    public class Leaps : ILeaps
     {
         private readonly Dictionary<string, ISquare> squares;
 
@@ -127,6 +127,6 @@ namespace ChessEngine.Common
             {
                 return Math.Abs(locationToMove - pieceToMove + 1);
             }
-        }               
+        }
     }
 }
