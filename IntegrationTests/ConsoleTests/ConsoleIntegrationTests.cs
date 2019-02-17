@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using FluentAssertions;
@@ -13,8 +14,7 @@ namespace ConsoleTests
     {
         private StringBuilder output;
         private StreamWriter st;
-        //Set to false to watch tests in debug console
-        private bool redirectOutput = false;
+        private bool redirectOutput = true; //Set to false to watch tests in debug console.
 
         public ConsoleIntegrationTests()
         {
@@ -65,6 +65,8 @@ namespace ConsoleTests
             Move("c2", "c4"); Move("g7", "g6");
             Move("b1", "c3"); Move("f8", "g7");
             Move("d2", "d4"); Move("O", "O");
+
+            output.ToString().Should().Contain("R  N  B  Q e8 K  R h8");
         }
 
         [Fact]

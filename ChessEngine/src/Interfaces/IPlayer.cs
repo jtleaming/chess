@@ -10,6 +10,6 @@ namespace ChessEngine.Interfaces
         bool Turn { get; set; }
         string IsPlayer { get; set; }
 
-        void Move(string pieceToMove, string locationToMove);
+        void Move(string move);
     }
 }

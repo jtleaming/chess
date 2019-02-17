@@ -25,22 +25,32 @@ namespace ChessEngine
             this.leaps = leaps;
         }
 
-        public void Move(string pieceToMove, string locationToMove)
+        public void Move(string move)
         {
-            try
+            if(move.ToLower().Contains("o"))
             {
-                var piece = Pieces.FirstOrDefault(p => p.Id == pieceToMove);
-
-                if (!(piece.GetType() == typeof(Pieces.Knight)))
-                {
-                    leaps.CheckForPiecesBetween(pieceToMove, locationToMove);
-                }
-
-                piece.Move(board.Squares[locationToMove]);
+                //Castle
             }
-            catch (NullReferenceException)
+            else
             {
-                throw new InvalidMoveException($"Player does not have a piece on {locationToMove}");
+                string pieceToMove = move[0].ToString();
+                string locationToMove = move[1].ToString();
+
+                try
+                {
+                    var piece = Pieces.FirstOrDefault(p => p.Id == pieceToMove);
+
+                    if (!(piece.GetType() == typeof(Pieces.Knight)))
+                    {
+                        leaps.CheckForPiecesBetween(pieceToMove, locationToMove);
+                    }
+
+                    piece.Move(board.Squares[locationToMove]);
+                }
+                catch (NullReferenceException)
+                {
+                    throw new InvalidMoveException($"Player does not have a piece on {locationToMove}");
+                }
             }
         }
     }
