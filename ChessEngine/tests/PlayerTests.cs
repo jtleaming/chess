@@ -81,13 +81,13 @@ namespace ChessEngine.tests
         public void Move_WhenGivenPieceQuardenantsAndNewSquare_ShouldCallPieceMove()
         {
             leaps.Setup(l => l.CheckForPiecesBetween(It.IsAny<string>(), It.IsAny<string>()));
-            Player.Move("b2", "b3");
+            Player.Move("b2 b3");
             mockPieces.FirstOrDefault(p => p.Object.Id == "b2").Verify(p => p.Move(It.IsAny<ISquare>()));
         }
         [Fact]
         public void Move_WhenGivenPieceQuardenantsWithoutPlayerPiece_ShouldThrowInvalidMoveException()
         {
-            Assert.Throws<InvalidMoveException>(() => Player.Move("b3", "b4"));
+            Assert.Throws<InvalidMoveException>(() => Player.Move("b3 b4"));
         }
         [Fact]
         public void Move_WhenPlayerPieceIsKnightAndLeapsOverPlayerPiece_ShouldNotCallCheckForPiecesBetween()
@@ -98,7 +98,7 @@ namespace ChessEngine.tests
             mockKnight.Setup(k => k.GetType()).Returns(typeof(Knight));
             Player.Pieces.Add(mockKnight.Object);
 
-            Player.Move("b1", "b4");
+            Player.Move("b1 b4");
         }
     }
 }

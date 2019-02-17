@@ -10,15 +10,16 @@ using Xunit;
 namespace ConsoleTests
 {
 
-    public class ConsoleIntegrationTests
+    public class ConsoleIntegrationTests : IDisposable
     {
         private StringBuilder output;
         private StreamWriter st;
         private bool redirectOutput = true; //Set to false to watch tests in debug console.
+        private Process proc;
 
         public ConsoleIntegrationTests()
         {
-            Process proc = new Process();
+            proc = new Process();
             proc.StartInfo.FileName = "dotnet";
             proc.StartInfo.UseShellExecute = false;
 
@@ -66,7 +67,8 @@ namespace ConsoleTests
             Move("b1", "c3"); Move("f8", "g7");
             Move("d2", "d4"); Move("O", "O");
 
-            output.ToString().Should().Contain("R  N  B  Q e8 K  R h8");
+            output.ToString().Should().Contain("R  N  B  Q  e8 R  K  h8");
+            output.ToString().Should().Contain("King side castle");
         }
 
         [Fact]
@@ -77,7 +79,7 @@ namespace ConsoleTests
             Move("g1", "f3"); Move("g8", "f6");
             Move("c2", "c4"); Move("g7", "g6");
             Move("b1", "c3"); Move("f8", "g7");
-            Move("d2", "d4"); Move("e8", "g8");
+            Move("d2", "d4"); Move("O", "O");
             Move("c1", "f4"); Move("d7", "d5");
             Move("d1", "b3"); Move("d5", "c4");
             Move("b3", "c4"); Move("c7", "c6");
@@ -115,6 +117,12 @@ namespace ConsoleTests
             Move("d1", "c1"); Move("g3", "e2");
             Move("c1", "b1"); Move("e2", "c3");
             Move("b1", "c1"); Move("a2", "c2");
+        }
+
+        public void Dispose()
+        {
+            proc.Kill();
+            proc.Dispose();
         }
     }
 }

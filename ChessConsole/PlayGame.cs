@@ -19,9 +19,9 @@ namespace ChessConsole
                 Console.WriteLine(DrawBoard(chessGame.Board.Squares.ToList()));
                 Console.WriteLine(errorMessage);
                 Console.WriteLine($"Player {playerToMove.IsPlayer}'s move:");
-                var moves = Console.ReadLine().Split(' ');
+                string moves = Console.ReadLine();
 
-                if (moves[0] == "exit")
+                if (moves == "exit")
                 {
                     Console.WriteLine("Game ended");
                     gameStarted = false;
@@ -31,7 +31,7 @@ namespace ChessConsole
                     try
                     {
                         ClearConsole();
-                        playerToMove.Move(moves[0], moves[1]);
+                        playerToMove.Move(moves);
                         Console.WriteLine(chessGame.TurnMessage + "\r\n");
                         errorMessage = string.Empty;
                     }

@@ -11,7 +11,7 @@ namespace ChessEngine
     public class Game
     {
         public IBoard Board { get; set; }
-        public (IPlayer PlayerOne, IPlayer PlayerTwo) Players { get; set; }
+        public (Player PlayerOne, Player PlayerTwo) Players { get; set; }
         public string TurnMessage => turnMessage;
 
         private int whiteStartIndex = 0;

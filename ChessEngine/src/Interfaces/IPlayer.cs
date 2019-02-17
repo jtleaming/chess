@@ -7,7 +7,7 @@ namespace ChessEngine.Interfaces
     {
         List<IPiece> Pieces {get;}
         List<IPiece> CapturedPieces { get; }
-        bool Turn { get; set; }
+        bool Turn { get; }
         string IsPlayer { get; set; }
 
         void Move(string move);

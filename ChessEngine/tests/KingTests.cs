@@ -89,5 +89,34 @@ namespace ChessEngine.tests
 
             mockCurrentSquare.Object.Piece.Should().Be(mockPiece.Object);
         }
+        [Fact]
+        public void Move_WhenCastling_ShouldMoveKingToKingSquareAndRookToRookSquare()
+        {
+            var mockRook = new Mock<IPiece>();
+            mockRook.Setup(p => p.Player).Returns(mockPlayer.Object);
+            mockRook.Setup(p => p.FirstMove).Returns(true);
+            mockRook.Setup(p => p.GetType()).Returns(typeof(Rook));
+
+            mockRook.Setup(r => r.Move(It.IsAny<ISquare>())).Callback((ISquare square) => {
+                mockRook.Setup(r => r.Square).Returns(square);
+            });
+
+            Mock<ISquare> mockRookSquare = new Mock<ISquare>();
+            mockRookSquare.Setup(s => s.Position).Returns(('f','1'));
+            mockRookSquare.Setup(s => s.Id).Returns(("f1"));
+
+            mockCurrentSquare.Setup(s => s.Position).Returns(('e', '1'));
+
+            mockNewSquare.Setup(s => s.Position).Returns(('g', '1'));
+            mockNewSquare.Setup(s => s.Id).Returns("g1");
+
+            mockCurrentSquare.SetupAllProperties();
+            king.Castling = (mockRookSquare.Object, mockRook.Object);
+            king.Move(mockNewSquare.Object);
+
+            king.Square.Id.Should().Be("g1");
+            mockRook.Object.Square.Id.Should().Be("f1");
+
+        }
     }
 }

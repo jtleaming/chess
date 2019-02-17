@@ -8,24 +8,23 @@ namespace ChessEngine.Pieces
 {
     public class King : Piece
     {
+        public (ISquare rookSquare, IPiece rook) Castling { get; set; }
         private bool castling;
         public King(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
         }
 
+
         public override void Move(ISquare newSquare)
         {
             castling = newSquare.Piece?.GetType() == typeof(Rook) && newSquare.Piece?.Player == Player && newSquare.Piece.FirstMove && FirstMove;
 
-            if(castling)
+            if(Castling.rook != null)
             {
-                var previousSquare = currentSquare;
-                var rook = newSquare.Piece;
-                newSquare.Piece = null;
+                currentSquare = newSquare;
+                newSquare.Piece = this;
 
-                base.Move(newSquare);
-
-                previousSquare.Piece = rook;
+                Castling.rook.Move(Castling.rookSquare);
             }
             else
             {
