@@ -89,8 +89,9 @@ namespace ConsoleTests
             Move("f1", "c4"); Move("e4", "c3");
             Move("e7", "c5"); Move("f8", "e8");
             Move("e1", "f1"); Move("g4", "e6");
-            Move("c5", "b6"); Move("e6", "c4");
-            Move("f1", "g1"); Move("c3", "e2");
+            Move("c5", "b6"); Move("e6", "c4"); //This move puts player one in check
+            Move("f1", "g1");//This is the move to take player one out of check
+            Move("c3", "e2");
             Move("g1", "f1"); Move("e2", "d4");
             Move("f1", "g1"); Move("d4", "e2");
             Move("g1", "f1"); Move("e2", "c3");
