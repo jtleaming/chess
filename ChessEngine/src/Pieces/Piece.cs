@@ -10,6 +10,7 @@ namespace ChessEngine.Pieces
     public abstract class Piece : IPiece
     {
         protected ISquare currentSquare;
+        protected static string turnMessage;
         private readonly IPlayer player;
         private bool firstMove = true;
 
@@ -59,7 +60,7 @@ namespace ChessEngine.Pieces
             newSquare.Piece = this;
             if (firstMove) firstMove = false;
 
-            TurnHandler.Invoke(this, new TurnEventArgs(pieceCaptured, capturedPiece));
+            TurnHandler.Invoke(this, new TurnEventArgs(pieceCaptured, capturedPiece, turnMessage));
         }
 
         public void RemoveFromBoard()

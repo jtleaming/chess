@@ -14,7 +14,7 @@ namespace ConsoleTests
     {
         private StringBuilder output;
         private StreamWriter st;
-        private bool redirectOutput = true; //Set to false to watch tests in debug console.
+        private bool redirectOutput = false; //Set to false to watch tests in debug console.
         private Process proc;
 
         public ConsoleIntegrationTests()
@@ -44,7 +44,7 @@ namespace ConsoleTests
         private void Move(string pieaceToMove, string spaceToMove)
         {
             st.WriteLineAsync($"{pieaceToMove} {spaceToMove}");
-            Thread.Sleep(100);
+            Thread.Sleep(500);
         }
 
         [Fact]

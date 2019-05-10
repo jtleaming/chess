@@ -57,9 +57,10 @@ namespace ChessEngine
                 Players.PlayerTwo.Turn = false;
                 Players.PlayerOne.Turn = true;
             }
-            turnMessage = eventArgs.PieceCaptured ?
+            turnMessage = string.IsNullOrEmpty(eventArgs.TurnMessage) ? ( 
+                        eventArgs.PieceCaptured ?
                         $"{piece.GetType().Name} captured {eventArgs.CapturedPiece.GetType().Name} {piece.Id}" :
-                        $"{piece.GetType().Name} to {piece.Id}";
+                        $"{piece.GetType().Name} to {piece.Id}") : eventArgs.TurnMessage;
         }
     }
 }

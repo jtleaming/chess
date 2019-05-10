@@ -21,10 +21,13 @@ namespace ChessEngine.Pieces
 
             if(Castling.rook != null)
             {
+                currentSquare.Piece = null;
                 currentSquare = newSquare;
                 newSquare.Piece = this;
 
+                turnMessage = "King side castle";
                 Castling.rook.Move(Castling.rookSquare);
+                turnMessage = string.Empty;
             }
             else
             {

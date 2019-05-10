@@ -8,9 +8,12 @@ namespace ChessEngine.Common
     {
         public bool PieceCaptured { get; }
         public IPiece CapturedPiece { get; }
-        public TurnEventArgs(bool pieceCaptured, IPiece capturedPiece)
+        public string TurnMessage { get; }
+
+        public TurnEventArgs(bool pieceCaptured, IPiece capturedPiece, string turnMessage)
         {
             CapturedPiece = capturedPiece;
+            TurnMessage = turnMessage;
             PieceCaptured = pieceCaptured;
         }
     }
