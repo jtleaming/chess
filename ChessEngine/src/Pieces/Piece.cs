@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
+using Newtonsoft.Json;
 
 namespace ChessEngine.Pieces
 {
@@ -14,8 +15,11 @@ namespace ChessEngine.Pieces
         private bool firstMove = true;
 
         public event EventHandler<TurnEventArgs> TurnHandler;
+        [JsonIgnore]
         public IPlayer Player => player;
+        [JsonIgnore]
         public ISquare Square => currentSquare;
+        public string Type => this.GetType().Name;
         public (char file, char rank) Position => currentSquare.Position;
         public string Id => currentSquare.Id;
         public bool FirstMove => firstMove;

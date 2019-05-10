@@ -4,6 +4,7 @@ using System.Linq;
 using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
+using Newtonsoft.Json;
 
 namespace ChessEngine
 {
@@ -11,7 +12,6 @@ namespace ChessEngine
     {
         private readonly IBoard board;
         private readonly ILeaps leaps;
-
         public List<IPiece> Pieces { get; } = new List<IPiece>();
         public bool Turn { get; set; }
 

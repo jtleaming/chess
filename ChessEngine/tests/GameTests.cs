@@ -4,13 +4,14 @@ using ChessEngine.Interfaces;
 using FluentAssertions;
 using Moq;
 using Xunit;
+using Newtonsoft.Json;
 
 namespace ChessEngine.tests
 {
     public class GameTests
     {
         private Game game;
-        private Mock<IEnPassant> enPassant = new Mock<IEnPassant>(); 
+        private Mock<IEnPassant> enPassant = new Mock<IEnPassant>();
 
         public GameTests()
         {
@@ -22,6 +23,8 @@ namespace ChessEngine.tests
         public void CreateGame_WhenCalled_CreatesNewGameBoard()
         {
             game.Board.Should().BeOfType(typeof(Board));
+            var json = JsonConvert.SerializeObject(game.Board.Squares);
+            json.ToString();
         }
         [Fact]
         public void CreateGame_WhenCalled_ShouldAddTwoPlayers()
@@ -87,7 +90,7 @@ namespace ChessEngine.tests
         [Fact]
         public void PlayerOne_WhenCallsMove_PieceShouldMoveToNewSquare()
         {
-            game.Players.PlayerOne.Move("b2","b3");
+            game.Players.PlayerOne.Move("b2", "b3");
 
             game.Board.Squares.First(s => s.Value.Id == "b2").Value.Occupied.Should().BeFalse();
             game.Board.Squares.First(s => s.Value.Id == "b3").Value.Occupied.Should().BeTrue();

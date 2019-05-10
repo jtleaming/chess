@@ -1,0 +1,21 @@
+{
+  "name": "chesswebclient",
+  "version": "1.0.0",
+  "description": "Web frontend for chess engine",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "chess"
+  ],
+  "author": "Justin Leaming",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "express": "^4.16.4",
+    "jest": "^24.8.0",
+    "open": "^6.2.0"
+  }
+}

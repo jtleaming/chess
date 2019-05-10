@@ -4,6 +4,7 @@ using System.Linq;
 using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
+using Newtonsoft.Json;
 
 namespace ChessEngine.Pieces
 {
@@ -12,6 +13,7 @@ namespace ChessEngine.Pieces
         public Pawn(ISquare currentSquare, IPlayer player) : base(currentSquare, player)
         {
         }
+        [JsonIgnore]
         public (IPawn pieceToCapture, ISquare squareToMove) EnPassant { get; set; } = (null, null);
 
         public override void Move(ISquare newSquare)
