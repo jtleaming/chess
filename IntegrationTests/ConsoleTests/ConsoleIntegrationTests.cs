@@ -9,16 +9,17 @@ using Xunit;
 namespace ConsoleTests
 {
 
-    public class ConsoleIntegrationTests
+    public class ConsoleIntegrationTests : IDisposable
     {
         private StringBuilder output;
         private StreamWriter st;
         //Set to false to watch tests in debug console
         private bool redirectOutput = false;
+        private Process proc;
 
         public ConsoleIntegrationTests()
         {
-            Process proc = new Process();
+            proc = new Process();
             proc.StartInfo.FileName = "dotnet";
             proc.StartInfo.UseShellExecute = false;
 
@@ -114,6 +115,12 @@ namespace ConsoleTests
             Move("d1", "c1"); Move("g3", "e2");
             Move("c1", "b1"); Move("e2", "c3");
             Move("b1", "c1"); Move("a2", "c2");
+        }
+
+        public void Dispose()
+        {
+            proc.Kill();
+            proc.Dispose();
         }
     }
 }
