@@ -53,9 +53,8 @@ namespace ChessConsole
         {
             StringBuilder board = new StringBuilder();
             char currentRank = '1';
-            int j = 64;
             board.Append("\t\t\t");
-            for (int i = 57; i <= j; i++)
+            for (int i = 57; i >= 1; i++)
             {
                 if (squares[i - 1].Value.Occupied)
                 {
@@ -68,10 +67,9 @@ namespace ChessConsole
                     board.Append($"{squares[i - 1].Key} ");
                 }
                 currentRank = squares[i - 1].Value.Position.rank;
-                if (i % 8 == 0 && i != 8)
+                if (i % 8 == 0)
                 {
                     i -= 16;
-                    j -= 8;
                     board.AppendLine();
                     board.Append("\t\t\t");
                 }
