@@ -1,5 +1,5 @@
 class chessBoard {
-    constructor(boardString){
+    constructor(boardJson) {
         this.board = document.createElement('div');
         this.board.className = 'chessboard';
         this.chessPieces = {
@@ -21,25 +21,25 @@ class chessBoard {
             }
         };
 
-        this.createBoard(boardString);
+        this.createBoard(boardJson);
     }
 
-    createBoard(boardString) {
-        let squares = Object.entries(JSON.parse(boardString));
+    createBoard(boardJson) {
+        let squares = Object.entries(boardJson);
         for (let index = 57; index >= 1; index++) {
-            let square = squares[index-1];
+            let square = squares[index - 1];
             let squareId = square[0];
             let div = document.createElement('div');
             div.id = squareId;
 
-            if((squareId[0].charCodeAt() + parseInt(squareId[1])) % 2 === 0) {
+            if ((squareId[0].charCodeAt() + parseInt(squareId[1])) % 2 === 0) {
                 div.className = 'black';
             } else {
                 div.className = 'white';
             }
 
-            if(square[1].Occupied){
-                if(squareId[1] === '1' || squareId[1] === '2') {
+            if (square[1].Occupied) {
+                if (squareId[1] === '1' || squareId[1] === '2') {
                     div.innerHTML = this.chessPieces.white[square[1].Piece.Type.toLowerCase()];
                 } else {
                     div.innerHTML = this.chessPieces.black[square[1].Piece.Type.toLowerCase()];

@@ -26,6 +26,13 @@ namespace ChessApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors(options => {
+                options.AddDefaultPolicy(policy => {
+                    policy.AllowAnyOrigin();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyHeader();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +46,7 @@ namespace ChessApi
             {
                 app.UseHsts();
             }
+            app.UseCors();
 
             // app.UseHttpsRedirection();
             app.UseMvc();
