@@ -1,10 +1,8 @@
 using System;
-using System.Linq;
-using System.Runtime.InteropServices;
+using System.Text.Json.Serialization;
 using ChessEngine.Common;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
-using Newtonsoft.Json;
 
 namespace ChessEngine.Pieces
 {

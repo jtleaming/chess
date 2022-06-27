@@ -7,7 +7,6 @@ using ChessEngine.tests.Fixtures;
 using FluentAssertions;
 using Moq;
 using Xunit;
-using static ChessEngine.Common.Singletons;
 
 namespace ChessEngine.tests
 {

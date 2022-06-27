@@ -1,10 +1,9 @@
-using System;
 using System.Linq;
+using System.Text.Json;
 using ChessEngine.Interfaces;
 using FluentAssertions;
 using Moq;
 using Xunit;
-using Newtonsoft.Json;
 
 namespace ChessEngine.tests
 {
@@ -23,7 +22,7 @@ namespace ChessEngine.tests
         public void CreateGame_WhenCalled_CreatesNewGameBoard()
         {
             game.Board.Should().BeOfType(typeof(Board));
-            var json = JsonConvert.SerializeObject(game.Board.Squares);
+            var json = JsonSerializer.Serialize(game.Board.Squares);
             json.ToString();
         }
         [Fact]

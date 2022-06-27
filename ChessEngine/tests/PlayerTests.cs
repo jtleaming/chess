@@ -1,16 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ChessEngine.Common;
+using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
-using ChessEngine.Extensions;
+using ChessEngine.Pieces;
 using FluentAssertions;
 using Moq;
 using Xunit;
-using ChessEngine.Exceptions;
 using static ChessEngine.Common.Singletons;
-using ChessEngine.Common;
-using System;
-using ChessEngine.Pieces;
 
 namespace ChessEngine.tests
 {

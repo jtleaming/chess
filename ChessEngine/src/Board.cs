@@ -1,11 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using static ChessEngine.Common.Singletons;
-using ChessEngine.Extensions;
 using ChessEngine.Interfaces;
-using ChessEngine.Exceptions;
+using static ChessEngine.Common.Singletons;
 
 namespace ChessEngine
 {

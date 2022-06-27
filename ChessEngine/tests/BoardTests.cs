@@ -1,9 +1,6 @@
 using System.Linq;
 using ChessEngine;
-using ChessEngine.Exceptions;
-using ChessEngine.Interfaces;
 using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace GameEngine.tests

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using FluentAssertions;
-using ChessEngine.Extensions;
-using Xunit;
 using System.Linq;
+using ChessEngine.Extensions;
+using FluentAssertions;
+using Xunit;
 
 namespace ChessEngine.tests
 {

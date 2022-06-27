@@ -3,3 +3,5 @@
 *obj
 test.log
 node_modules
+.idea
+.user

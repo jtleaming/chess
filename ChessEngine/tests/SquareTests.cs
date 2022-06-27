@@ -1,4 +1,3 @@
-using ChessEngine;
 using ChessEngine.Exceptions;
 using ChessEngine.Interfaces;
 using FluentAssertions;

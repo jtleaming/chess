@@ -1,8 +1,7 @@
-using System.Collections.Generic;
+using System.Text.Json;
 using ChessEngine;
 using ChessEngine.Common;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace ChessApi.Controllers
 {
@@ -21,7 +20,7 @@ namespace ChessApi.Controllers
                 var enPassantChecker = new EnPassant();
                 chessGame.CreateGame(enPassantChecker);
 
-                return Ok(JsonConvert.SerializeObject(chessGame.Board.Squares));
+                return Ok(JsonSerializer.Serialize(chessGame.Board.Squares));
             }
             catch (System.Exception)
             {
@@ -35,7 +34,7 @@ namespace ChessApi.Controllers
         {
             try
             {
-                return Ok(JsonConvert.SerializeObject(chessGame.Players));
+                return Ok(JsonSerializer.Serialize(chessGame.Players));
             }
             catch (System.Exception)
             {
